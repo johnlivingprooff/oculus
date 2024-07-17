@@ -1,0 +1,180 @@
+.hero {
+    height: 100vh;
+}
+
+.hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    z-index: -1;
+    margin-top: -50px;
+    opacity: 1;
+}
+
+.hero-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+}
+
+.hero-text h1 {
+    font-size: 98px;
+    line-height: 100px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.hero-text p {
+    font-size: 18px;
+    font-weight: 300;
+    padding-top: 40px;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.hero-text button {
+    background-color: #1e553b;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 25px;
+}
+
+.hero-text button:hover {
+    background-color: #297752;
+    letter-spacing: 3.2px;
+}
+
+.about-us {
+    position: relative;
+    display: flex;
+    margin: -50px 0 0 0;
+}
+
+.about-us img {
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.abt-text {
+    width: 50%;
+    float: left;
+    padding: 80px 150px 0 70px;
+}
+
+.abt-text button {
+    background-color: #1e553b;
+    color: white;
+    border: none;
+    margin: 10px 0;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.abt-text button:hover {
+    background-color: #297752;
+    letter-spacing: 3.2px;
+}
+
+.features {
+    justify-content: space-between;
+    margin: 50px 0;
+}
+
+.features h2 {
+    text-align: center;
+    margin-bottom: 50px;
+    letter-spacing: 15px;
+    color: #1e553b;
+    text-transform: uppercase;
+}
+
+.feature-cards {
+    width: 95%;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+}
+
+.feature-card {
+    width: 75%;
+    padding: 20px;
+    margin-left: 35px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+}
+
+.feature-card:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    background-color: #297752;
+    color: white;
+}
+
+.feature-card p {
+    text-align: center;
+}
+
+.contact-us {
+    margin: 50px 0;
+}
+
+.contact-us h2 {
+    text-align: center;
+    margin-bottom: 50px;
+    letter-spacing: 15px;
+    color: #1e553b;
+    text-transform: uppercase;
+}
+
+.form {
+    display: flex;
+    justify-content: space-between;
+    margin: 50px 150px;
+}
+
+.form input, textarea {
+    width: 45%;
+    padding: 10px;
+    border: 1px solid #1e553b;
+    border-radius: 5px;
+    margin: 5px 25px;
+    transition: all 0.3s;
+}
+
+.form input:focus, textarea:focus {
+    border-color: #297752;
+}
+
+.form input:hover, textarea:hover {
+    border-color: #297752;
+}
+
+.form button {
+    background-color: #1e553b;
+    color: white;
+    border: none;
+    padding: 10px 35px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.form button:hover {
+    background-color: #297752;
+}

@@ -1,0 +1,25 @@
+{
+    "name": "server-side",
+    "version": "1.0.0",
+    "description": "Backend side of specialization portfolio project",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node --watch --env-file=.env server"
+    },
+    "author": "Kwame Abbey and John-Livingproof",
+    "license": "ISC",
+    "dependencies": {
+        "axios": "^1.7.2",
+        "bcrypt": "^5.1.1",
+        "colors": "^1.4.0",
+        "cookie-parser": "^1.4.6",
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.5",
+        "express": "^4.19.2",
+        "jsonwebtoken": "^9.0.2",
+        "mongoose": "^8.4.5",
+        "redis": "^4.6.15",
+        "validator": "^13.12.0"
+    }
+}

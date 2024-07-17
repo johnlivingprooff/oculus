@@ -1,0 +1,75 @@
+.bdy {
+    background-image: url('https://images.unsplash.com/photo-1557683316-973673baf926');
+    background-size: cover;
+    background-position: center;
+}
+
+.bdy h4 {
+    color: #fff;
+    letter-spacing: 12px;
+    padding-left: 15px;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 35px;
+}
+
+.register {
+    background-color: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+    width: 40%;
+    margin: 20px auto 70px auto;
+    border-radius: 10px;
+}
+
+.register form {
+    justify-content: center;
+    align-items: center;
+    margin-left: 50px;
+}
+
+
+.register form div input {
+    width: 450px;
+    padding: 10px;
+    margin: 18px 0 18px 0;
+    margin-left: -55px;
+    border: none;
+    border-bottom: 1px solid #1e553b;
+}
+
+.register form button {
+    background-color: #1e553b;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: -55px;
+    transition: all 0.3s;
+}
+
+.register form button:hover {
+    background-color: #297752;
+}
+
+.register form a {
+    text-decoration: underline;
+    color: #1e553b;
+    transition: all 0.3s;
+}
+
+.register form a:hover {
+    color: #349d6c;
+}
+
+.error {
+    color: red;
+    text-align: left;
+    margin-top: 10px;
+    margin-left: -55px;
+    font-size: 0.7em;
+}

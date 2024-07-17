@@ -1,0 +1,115 @@
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Header from "../components/HeaderTwo";
+import Footer from "../components/Footer";
+import { Link } from "react-router-dom";
+import '../assets/styles/Register.css';
+
+function Login() {
+    const [formData, setFormData] = useState({
+        email: '',
+        password: ''
+    });
+    const [errors, setErrors] = useState({});
+    const navigate = useNavigate();
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value
+        });
+    };
+
+    const validateForm = () => {
+        const newErrors = {};
+        
+        if (!formData.email) {
+            newErrors.email = 'Email is required';
+        }
+        if (!formData.password) {
+            newErrors.password = 'Password is required';
+        }
+
+        return newErrors;
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const validationErrors = validateForm();
+        if (Object.keys(validationErrors).length > 0) {
+            setErrors(validationErrors);
+            return;
+        }
+        setErrors({});
+
+        try {
+            const response = await fetch('http://localhost:3010/api/v1/users/auth', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: formData.email,
+                    password: formData.password
+                })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                // Redirect to the home page or dashboard
+                navigate('/dashboard');
+            } else {
+                setErrors({ apiError: data.message });
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            setErrors({ apiError: 'An error occurred. Please try again.' });
+        }
+    };
+
+    return (
+        <div className="bdy">
+            <Header />
+            <br />
+            <br />
+            <h4>Login</h4>
+            <div className="register">
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            required
+                            placeholder="Your Email (ex. yourname@example.com)"
+                            value={formData.email}
+                            onChange={handleChange}
+                        />
+                        {errors.email && <div className="error">{errors.email}</div>}
+                    </div>
+                    <div>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            required
+                            placeholder="Password"
+                            value={formData.password}
+                            onChange={handleChange}
+                        />
+                        {errors.password && <div className="error">{errors.password}</div>}
+                    </div>
+                    {errors.apiError && <div className="error">{errors.apiError}</div>}
+                    <br />
+                    <br />
+                    <button type="submit">Login</button> &nbsp;&nbsp;&nbsp;&nbsp; Not a User? &nbsp;<Link to="/sign-up">Sign Up!</Link>
+                </form>
+            </div>
+            <Footer />
+        </div>
+    );
+}
+
+export default Login;

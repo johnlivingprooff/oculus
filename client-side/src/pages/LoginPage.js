@@ -58,6 +58,11 @@ function Login() {
             const data = await response.json();
 
             if (response.ok) {
+                const token = data.token;
+
+                localStorage.setItem('token', token);
+                console.log('Login successful, token stored in localStorage:', token);
+                console.log('Local Token:', localStorage.getItem('token'));
                 // Redirect to the home page or dashboard
                 navigate('/dashboard');
             } else {

@@ -3,6 +3,7 @@ import Footer from "../components/Footer";
 import hero from "../assets/imgs/hero-img.jpg";
 import about from "../assets/imgs/about-img.jpg";
 import { Typewriter } from 'react-simple-typewriter';
+import { Link } from "react-router-dom";
 import '../assets/styles/HomePage.css';
 
 function HomePage() {
@@ -25,7 +26,7 @@ function HomePage() {
                     </h1>
                     <p>Increase your crop yield with OCULUS Technology, Sign up Today for a 3-Month Free Trial</p>
                     <br></br><br></br>
-                    <button>SIGN UP</button>
+                    <Link to="/sign-up"> <button>  SIGN UP </button> </Link>
                 </div>
             </div>
             <div className="about-us" id="about">

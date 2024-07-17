@@ -2,7 +2,8 @@ const jwt = require('jsonwebtoken');
 const User = require("../models/User");
 
 const auth = (req, res, next) => {
-    const token = req.cookies.jwt
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1]; // Extract the token from the 'Bearer <token>' format
 
     // Check if jsonwebtoken exists && is verified
     if (token) {

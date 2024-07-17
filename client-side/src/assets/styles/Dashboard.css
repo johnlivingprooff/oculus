@@ -1,0 +1,105 @@
+.main-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  justify-content: space-between;
+  margin: 15px auto;
+}
+
+.container-one {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    width: 50%;
+    height: 100%;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    margin-right: 10px;
+    padding: 0 50px;
+}
+
+.head {
+    align-items: left;
+    margin: 20px 0;
+}
+
+.head img {
+    width: 10px;
+    height: 10px;
+}
+
+.weather-box {
+    border: 1px solid #1e553b;
+    border-radius: 15px;
+    padding: 0 50px;
+    margin-bottom: 15px;
+}
+
+#city {
+    font-size: 1em;
+    margin-top: 0;
+}
+
+#deg {
+    font-size: 2em;
+}
+
+#temp {
+    font-size: 4.5em;
+    font-weight: 700;
+    margin-bottom: -10px;
+}
+
+#w-icon {
+    width: 150px;
+    height: 150px;
+    margin-left: 25px;
+}
+
+.w-info {
+    display: flex;
+}
+
+.field-form {
+    margin: 10px 0 25px auto;
+}
+
+.field-form form input {
+    border: none;
+    border-bottom: #1e553b 1px solid;
+    margin-right: 10px;
+    margin-bottom: 15px;
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+
+.field-form form button, #add-field {
+    border: none;
+    background-color: #1e553b;
+    padding: 10px 20px;
+    color: #f8f9fa;
+    transition: all 0.3s;
+}
+
+.field-form form button:hover, #add-field:hover {
+    background-color: #256c4b;
+    cursor: pointer;
+}
+
+#add-field {
+    margin-bottom: 25px;
+}
+
+#select-field {
+    padding: 10px 20px;
+    border: #1e553b 1px solid;
+    margin-bottom: 25px;
+}
+
+#options {
+    height: fit-content;
+    padding: 10px 20px;
+    margin-top: 200px;
+}

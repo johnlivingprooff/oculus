@@ -19,6 +19,7 @@
     transform: translate(-50%, -50%);
     text-align: center;
     color: white;
+    width: 100%;
 }
 
 .hero-text h1 {
@@ -36,7 +37,7 @@
     font-weight: 500;
 }
 
-.hero-text button {
+#sign-up {
     background-color: #1e553b;
     color: white;
     border: none;
@@ -44,12 +45,28 @@
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s;
-    font-size: 25px;
+    font-size: 15px;
+    margin-right: 20px;
 }
 
-.hero-text button:hover {
+#sign-up:hover {
     background-color: #297752;
-    letter-spacing: 3.2px;
+}
+
+#learn-more {
+    background-color: #0f291d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 15px;
+    margin-right: 20px;
+}
+
+#learn-more:hover {
+    background-color: #297752;
 }
 
 .about-us {

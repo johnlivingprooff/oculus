@@ -26,7 +26,8 @@ function HomePage() {
                     </h1>
                     <p>Increase your crop yield with OCULUS Technology, Sign up Today for a 3-Month Free Trial</p>
                     <br></br><br></br>
-                    <Link to="/sign-up"> <button>  SIGN UP </button> </Link>
+                    <Link to="/sign-up"> <button id="sign-up">  Sign Up! </button> </Link>
+                    <a href="#about"> <button id="learn-more">  Learn More </button> </a>
                 </div>
             </div>
             <div className="about-us" id="about">

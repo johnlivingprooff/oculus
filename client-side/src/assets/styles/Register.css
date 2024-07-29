@@ -1,42 +1,44 @@
 .bdy {
-    background-image: url('https://images.unsplash.com/photo-1557683316-973673baf926');
+    background-image: url('../imgs/hero-img.jpg');
     background-size: cover;
     background-position: center;
 }
 
 .bdy h4 {
-    color: #fff;
+    color: #242a30;
     letter-spacing: 12px;
-    padding-left: 15px;
     transition: all 0.3s;
     text-transform: uppercase;
-    text-align: center;
+    margin: 0;
+    text-align: left;
     font-size: 35px;
+    margin-left: -55px;
+    margin-bottom: 15px;
 }
 
 .register {
     background-color: #f8f9fa;
     display: flex;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
     height: 60vh;
     width: 40%;
-    margin: 20px auto 70px auto;
+    margin: 50px auto 70px auto;
     border-radius: 10px;
 }
 
 .register form {
     justify-content: center;
     align-items: center;
-    margin-left: 50px;
+    margin-left: 100px;
 }
 
 
 .register form div input {
-    width: 450px;
+    width: 100%;
     padding: 10px;
     margin: 18px 0 18px 0;
-    margin-left: -55px;
+    margin-left: -60px;
     border: none;
     border-bottom: 1px solid #1e553b;
 }
@@ -48,7 +50,7 @@
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    margin-left: -55px;
+    margin-left: -60px;
     transition: all 0.3s;
 }
 
@@ -72,4 +74,19 @@
     margin-top: 10px;
     margin-left: -55px;
     font-size: 0.7em;
+}
+
+.form-img {
+    width: 45%;
+    height: 100%;
+    background-image: url('https://images.unsplash.com/photo-1557683316-973673baf926');
+    background-size: cover;
+    background-position: center;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    justify-self: left;
+}
+
+.swtch {
+    font-size: 15px;
 }

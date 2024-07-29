@@ -3,7 +3,7 @@ const handleErrors = (err) => {
   let errors = { username: "", email: "", password: "" };
 
   // Incorrect email
-  if (err.message === "Incorrect email") {
+  if (err.message === "User not found") {
     errors.email = "that email is not registered";
   }
 

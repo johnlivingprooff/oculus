@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "../components/HeaderTwo";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import '../assets/styles/Register.css';
 
 function Register() {
@@ -84,12 +85,16 @@ function Register() {
 
     return (
         <div className="bdy">
+            <Helmet>
+                <title>Register | OCULUS</title>
+            </Helmet>
             <Header />
             <br />
             <br />
-            <h4>Register</h4>
             <div className="register">
+                <span className="form-img"></span>
                 <form onSubmit={handleSubmit}>
+                    {/* <h4>Register</h4> */}
                     <div>
                         <input
                             type="text"
@@ -141,7 +146,7 @@ function Register() {
                     {errors.apiError && <div className="error">{errors.apiError}</div>}
                     <br />
                     <br />
-                    <button type="submit">Register</button> &nbsp;&nbsp;&nbsp;&nbsp; Already a User? &nbsp;<Link to="/login">Login</Link>
+                    <button type="submit">Register</button> &nbsp;&nbsp; <span className="swtch">Already a User? &nbsp;<Link to="/login">Login</Link></span>
                 </form>
             </div>
             <Footer />

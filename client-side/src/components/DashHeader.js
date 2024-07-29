@@ -12,7 +12,7 @@ function Header() {
           <li> <a href="#about">Market Insights</a> </li>
           {/* <li> <a href="#features">What we Offer?</a> </li>
           <li> <a href="#team">Our Team</a> </li> */}
-          <li> <a href="#contact">Contact Us</a> </li>
+          <li> <a href="#contact">Fields</a> </li>
         </ul>
         <button> <Link to="/login">Log Out</Link> </button>
       </div>

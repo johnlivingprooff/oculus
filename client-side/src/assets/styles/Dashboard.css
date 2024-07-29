@@ -1,105 +1,132 @@
-.main-container {
-  display: flex;
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-  justify-content: space-between;
-  margin: 15px auto;
-}
-
-.container-one {
+    .main-container {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: left;
-    width: 50%;
     height: 100%;
-    background-color: #f8f9fa;
-    border-radius: 10px;
-    margin-right: 10px;
-    padding: 0 50px;
-}
+    width: 100%;
+    overflow: hidden;
+    justify-content: space-between;
+    margin: 15px auto;
+    }
 
-.head {
-    align-items: left;
-    margin: 20px 0;
-}
+    .container-one {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: left;
+        width: 50%;
+        height: 100%;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        margin-right: 10px;
+        padding: 0 50px;
+    }
 
-.head img {
-    width: 10px;
-    height: 10px;
-}
+    .head {
+        align-items: left;
+        margin: 20px 0;
+    }
 
-.weather-box {
-    border: 1px solid #1e553b;
-    border-radius: 15px;
-    padding: 0 50px;
-    margin-bottom: 15px;
-}
+    .head img {
+        width: 10px;
+        height: 10px;
+    }
 
-#city {
-    font-size: 1em;
-    margin-top: 0;
-}
+    .weather-box {
+        /* border: 1px solid #1e553b; */
+        background-color: rgb(197, 247, 223);
+        border-radius: 15px;
+        padding-left: 30px;
+        margin-bottom: 15px;
+        width: auto;
+    }
 
-#deg {
-    font-size: 2em;
-}
+    .weather-box-two {
+        border: 1px solid hsl(152, 48%, 23%);
+        width: auto;
+        height: 50px;
+        margin-bottom: 15px;
+    }
 
-#temp {
-    font-size: 4.5em;
-    font-weight: 700;
-    margin-bottom: -10px;
-}
+    .w-info2 {
+        display: flex;
+        margin: 0 25px;
+        justify-content: space-between;
+    }
 
-#w-icon {
-    width: 150px;
-    height: 150px;
-    margin-left: 25px;
-}
+    .w-info2 p {
+        font-size: 15px;
+    }
 
-.w-info {
-    display: flex;
-}
+    #city {
+        font-size: 1em;
+        margin-top: -5px;
+    }
 
-.field-form {
-    margin: 10px 0 25px auto;
-}
+    #deg {
+        font-size: 1em;
+    }
 
-.field-form form input {
-    border: none;
-    border-bottom: #1e553b 1px solid;
-    margin-right: 10px;
-    margin-bottom: 15px;
-    padding-top: 10px;
-    padding-bottom: 5px;
-}
+    #temp {
+        font-size: 2.5em;
+        font-weight: 700;
+    }
 
-.field-form form button, #add-field {
-    border: none;
-    background-color: #1e553b;
-    padding: 10px 20px;
-    color: #f8f9fa;
-    transition: all 0.3s;
-}
+    #w-icon {
+        width: 120px;
+        height: 120px;
+        margin-top: -5px;
+        margin-left: 5px;
+    }
 
-.field-form form button:hover, #add-field:hover {
-    background-color: #256c4b;
-    cursor: pointer;
-}
+    .w-info {
+        display: flex;
+        width: auto;
+        height: auto;
+        margin-top: 15px;
+    }
 
-#add-field {
-    margin-bottom: 25px;
-}
+    .w-info div {
+        margin-top: 15px;
+        margin-right: 15px;
+    }
 
-#select-field {
-    padding: 10px 20px;
-    border: #1e553b 1px solid;
-    margin-bottom: 25px;
-}
+    .field-form {
+        margin: 10px 0 25px auto;
+    }
 
-#options {
-    height: fit-content;
-    padding: 10px 20px;
-    margin-top: 200px;
-}
+    .field-form form input {
+        border: none;
+        border-bottom: #1e553b 1px solid;
+        margin-right: 10px;
+        margin-bottom: 15px;
+        padding-top: 10px;
+        padding-bottom: 5px;
+    }
+
+    .field-form form button, #add-field {
+        border: none;
+        background-color: #1e553b;
+        padding: 10px 20px;
+        color: #f8f9fa;
+        transition: all 0.3s;
+    }
+
+    .field-form form button:hover, #add-field:hover {
+        background-color: #256c4b;
+        cursor: pointer;
+    }
+
+    #add-field {
+        margin-bottom: 25px;
+    }
+
+    #select-field {
+        padding: 10px 20px;
+        border: #1e553b 1px solid;
+        margin-bottom: 25px;
+    }
+
+    #options {
+        height: fit-content;
+        padding: 10px 20px;
+        margin-top: 200px;
+    }

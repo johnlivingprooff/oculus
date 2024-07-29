@@ -3,12 +3,18 @@ import Footer from "../components/Footer";
 import hero from "../assets/imgs/hero-img.jpg";
 import about from "../assets/imgs/about-img.jpg";
 import { Typewriter } from 'react-simple-typewriter';
+import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import '../assets/styles/HomePage.css';
 
 function HomePage() {
     return (
         <div>
+            <Helmet>
+                <title>OCULUS - The Future of Agriculture</title>
+                <meta name="description" content="Increase your crop yield with OCULUS Technology. Sign up today for a 3-month free trial!" />
+                <meta name="keywords" content="OCULUS, Agriculture, Crop Yield, IoT, Farming, Technology" />
+            </Helmet>
             <Header />
             <div className="hero">
                 <img src={hero} alt="hero-img" />

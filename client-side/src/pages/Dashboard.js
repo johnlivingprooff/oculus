@@ -3,6 +3,7 @@ import Header from '../components/DashHeader';
 import Footer from '../components/Footer';
 import '../assets/styles/Dashboard.css';
 import calender from '../assets/imgs/calender.png';
+import { Helmet } from 'react-helmet';
 
 function Dashboard() {
     const [currentDateTime, setCurrentDateTime] = useState(new Date());
@@ -90,7 +91,8 @@ function Dashboard() {
                 },
                 body: JSON.stringify(newField)
             });
-            if (response.ok) {
+            console.log('response:', response.status);
+            if (response) {
                 fetchFields();
                 setNewField({
                     fieldName: '',
@@ -125,6 +127,9 @@ function Dashboard() {
 
     return (
         <div>
+            <Helmet>
+                <title>Dashboard  |  OCULUS</title>
+            </Helmet>
             <Header />
             <div className='main-container'>
                 <div className='container-one'>
@@ -136,9 +141,26 @@ function Dashboard() {
                         {selectedField ? (
                             weatherData ? (
                                 <div className='w-info'>
+                                    <img src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`} alt='weather-icon' id='w-icon'/>
                                     <div><span id='temp'>{weatherData.main.temp}</span><sup id='deg'>°C</sup>
                                     <h4 id='city'>City: {selectedField.fieldLocation}</h4></div><br/>
-                                    <img src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`} alt='weather-icon' id='w-icon'/>
+                                </div>
+                            ) : (
+                                <p>Loading weather data...</p>
+                            )
+                        ) : (
+                            <p>No field selected</p>
+                        )}
+                    </div>
+                    <div className='weather-box-two'>
+                        {selectedField ? (
+                            weatherData ? (
+                                <div className='w-info2'>
+                                    <p>H: {weatherData.main.humidity}%</p>
+                                    <p style={{ color: '#6cdda8' }}>&nbsp;|&nbsp;</p>
+                                    <p>P: {weatherData.main.pressure}hPa</p>
+                                    <p style={{ color: '#6cdda8' }}>&nbsp;|&nbsp;</p>
+                                    <p>WS: {weatherData.wind.speed}m/s</p>
                                 </div>
                             ) : (
                                 <p>Loading weather data...</p>
@@ -173,9 +195,9 @@ function Dashboard() {
                                     required
                                 />
                                 <input
-                                    type="text"
+                                    type="number"
                                     name="fieldSize"
-                                    placeholder="Field Size"
+                                    placeholder="Field Size in acres"
                                     value={newField.fieldSize}
                                     onChange={handleFieldChange}
                                     required

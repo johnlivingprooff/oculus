@@ -4,6 +4,7 @@ import Header from "../components/HeaderTwo";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 import '../assets/styles/Register.css';
+import { Helmet } from "react-helmet";
 
 function Login() {
     const [formData, setFormData] = useState({
@@ -61,8 +62,8 @@ function Login() {
                 const token = data.token;
 
                 localStorage.setItem('token', token);
-                console.log('Login successful, token stored in localStorage:', token);
-                console.log('Local Token:', localStorage.getItem('token'));
+                // console.log('Login successful, token stored in localStorage:', token);
+                // console.log('Local Token:', localStorage.getItem('token'));
                 // Redirect to the home page or dashboard
                 navigate('/dashboard');
             } else {
@@ -76,12 +77,16 @@ function Login() {
 
     return (
         <div className="bdy">
+            <Helmet>
+                <title>Login | OCULUS</title>
+            </Helmet>
             <Header />
             <br />
             <br />
-            <h4>Login</h4>
             <div className="register">
+                <span className="form-img"></span>
                 <form onSubmit={handleSubmit}>
+                    <h4>Login</h4>
                     <div>
                         <input
                             type="email"
@@ -109,9 +114,9 @@ function Login() {
                     {errors.apiError && <div className="error">{errors.apiError}</div>}
                     <br />
                     <br />
-                    <button type="submit">Login</button> &nbsp;&nbsp;&nbsp;&nbsp; Not a User? &nbsp;<Link to="/sign-up">Sign Up!</Link>
+                    <button type="submit">Login</button> &nbsp;&nbsp;&nbsp; <span className="swtch">Not a User? &nbsp;<Link to="/sign-up">Sign Up!</Link></span>
                 </form>
-            </div>
+            </div><br /><br /><br /><br />
             <Footer />
         </div>
     );

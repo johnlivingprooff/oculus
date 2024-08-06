@@ -39,7 +39,7 @@ function Dashboard() {
 
     const fetchFields = async () => {
         try {
-            const response = await fetch('http://localhost:3010/api/v1/fields/list_fields', {
+            const response = await fetch('/api/v1/fields/list_fields', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ function Dashboard() {
 
     const getWeatherData = async (location) => {
         try {
-            const response = await fetch(`http://localhost:3010/api/v1/weather?location=${location}`, {
+            const response = await fetch(`/api/v1/weather?location=${location}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ function Dashboard() {
     const handleAddField = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:3010/api/v1/fields/add_field', {
+            const response = await fetch('/api/v1/fields/add_field', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

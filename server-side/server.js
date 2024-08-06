@@ -26,7 +26,7 @@ const app = express();
 // MIddlewares
 app.use(express.json());
 app.use(cors({
-  origin: 'http://localhost:3000'
+  origin: 'https://oculus-6zg7.onrender.com'
 }));
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());

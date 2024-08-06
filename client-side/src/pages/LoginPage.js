@@ -45,7 +45,7 @@ function Login() {
         setErrors({});
 
         try {
-            const response = await fetch('http://localhost:3010/api/v1/users/auth', {
+            const response = await fetch('/api/v1/users/auth', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -62,8 +62,8 @@ function Login() {
                 const token = data.token;
 
                 localStorage.setItem('token', token);
-                // console.log('Login successful, token stored in localStorage:', token);
-                // console.log('Local Token:', localStorage.getItem('token'));
+                console.log('Login successful, token stored in localStorage:', token);
+                console.log('Local Token:', localStorage.getItem('token'));
                 // Redirect to the home page or dashboard
                 navigate('/dashboard');
             } else {

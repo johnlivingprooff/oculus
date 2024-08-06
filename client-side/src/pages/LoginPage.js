@@ -56,7 +56,13 @@ function Login() {
                 })
             });
 
-            const data = await response.json();
+            let data;
+            try {
+                data = await response;  // Attempt to parse JSON
+                console.log(data)
+            } catch (e) {
+                throw new Error('Failed to parse JSON response');  // Handle parsing errors
+            }
 
             if (response.ok) {
                 const token = data.token;

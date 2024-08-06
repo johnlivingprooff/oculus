@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function Header () {
   const handleLogout = async () => {
     try {
-      const response = await fetch('/api/v1/users/logout', {
+      const response = await fetch('https://oculus-server.onrender.com/api/v1/users/logout', {
         method: 'GET',
         credentials: 'include'
       });

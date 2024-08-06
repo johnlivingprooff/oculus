@@ -93,7 +93,7 @@ function Login() {
                             id="email"
                             name="email"
                             required
-                            placeholder="Your Email (ex. yourname@example.com)"
+                            placeholder="Enter your email"
                             value={formData.email}
                             onChange={handleChange}
                         />

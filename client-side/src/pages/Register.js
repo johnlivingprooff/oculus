@@ -101,7 +101,7 @@ function Register() {
                             id="name"
                             name="name"
                             required
-                            placeholder="Create your username (ex. john_doe)"
+                            placeholder="Create a username"
                             value={formData.name}
                             onChange={handleChange}
                         />
@@ -113,7 +113,7 @@ function Register() {
                             id="email"
                             name="email"
                             required
-                            placeholder="Your Email (ex. yourname@example.com)"
+                            placeholder="Enter your email"
                             value={formData.email}
                             onChange={handleChange}
                         />
@@ -146,7 +146,7 @@ function Register() {
                     {errors.apiError && <div className="error">{errors.apiError}</div>}
                     <br />
                     <br />
-                    <button type="submit">Register</button> &nbsp;&nbsp; <span className="swtch">Already a User? &nbsp;<Link to="/login">Login</Link></span>
+                    <button type="submit">Register</button> &nbsp;&nbsp; <span className="swtch">Already a User?&nbsp;&nbsp;<Link to="/login">Login</Link></span>
                 </form>
             </div>
             <Footer />

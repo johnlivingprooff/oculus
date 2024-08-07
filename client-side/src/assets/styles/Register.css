@@ -90,3 +90,21 @@
 .swtch {
     font-size: 15px;
 }
+
+/* mobile rendition */
+@media only screen and (max-width: 768px) {
+    .register {
+        width: 85%;
+        height: 65vh;
+        margin: 50px auto 70px auto;
+    }
+
+    .register form {
+        margin-left: 30%;
+        padding: auto; 
+    }
+
+    .form-img {
+        display: none;
+    }
+}

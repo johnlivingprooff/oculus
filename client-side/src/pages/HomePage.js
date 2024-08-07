@@ -40,7 +40,7 @@ function HomePage() {
                 <img src={about} alt="about-oculus" />
                 <div className="abt-text"><h2>About Us</h2>
                 <p>OCULUS is a smart agriculture platform that provides farmers with real-time data and insights on their crops. Our platform uses IoT devices and sensors to monitor the health of crops and soil. With OCULUS, farmers can make data-driven decisions to optimize their crop yield and reduce costs. <br/><br/>Sign up today for a <b>3-month free trial!</b></p>
-                <button>SIGN UP</button></div>
+                <Link to="/sign-up"><button>SIGN UP</button></Link></div>
             </div>
 
             <div id="features" className="features">

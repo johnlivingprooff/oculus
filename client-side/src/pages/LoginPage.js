@@ -58,7 +58,7 @@ function Login() {
 
             let data;
             try {
-                data = await response;  // Attempt to parse JSON
+                data = await response.json();  // Attempt to parse JSON
                 console.log(data)
             } catch (e) {
                 throw new Error('Failed to parse JSON response');  // Handle parsing errors

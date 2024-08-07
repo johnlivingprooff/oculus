@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function Header() {
   return (
     <header className="top">
-      <h1>OCULUS</h1>
+      <Link to={'/'}><h1>OCULUS</h1></Link>
       <div className="nav-bar">
         <ul>
           <li> <Link to="/">Home</Link> </li>
@@ -15,6 +15,7 @@ function Header() {
           <li> <a href="#contact">Contact Us</a> </li>
         </ul>
         <button> <Link to="/sign-up">LogIn / Register</Link> </button>
+        
       </div>
     </header>
   );

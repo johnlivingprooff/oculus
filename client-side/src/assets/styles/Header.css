@@ -6,6 +6,10 @@
     background-color: #f8f9fa;
     border-bottom: 1px solid #e9ecef;
   }
+
+  .top a {
+    text-decoration: none;
+  }
   
   .top h1 {
     color: #1e553b;
@@ -71,4 +75,25 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  /* mobile rendition */
+  @media (max-width: 768px) {
+    .top h1 {
+      letter-spacing: 10px;
+    }
+
+    .nav-bar ul {
+      display: none;
+    }
+
+    
+  
+    .nav-bar ul li {
+      margin-right: 15px;
+    }
+  
+    .nav-bar button {
+      padding: 10px 15px;
+    }
   }

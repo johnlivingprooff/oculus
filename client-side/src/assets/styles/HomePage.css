@@ -195,3 +195,82 @@
 .form button:hover {
     background-color: #297752;
 }
+
+/* mobile rendition */
+@media only screen and (max-width: 768px) {
+    .hero-text h1 {
+        font-size: 45px;
+        line-height: 50px;
+        padding: 5px;
+    }
+
+    .hero-text p {
+        font-size: 15px;
+        padding-top: 20px;
+        padding: 0 35px;
+    }
+
+    #sign-up, #learn-more {
+        margin-left: 15px;
+    }
+
+    .about-us {
+        flex-direction: column;
+    }
+
+    .about-us img {
+        display: none;
+    }
+
+    .abt-text {
+        width: 95%;
+        padding: 30px 10px;
+        text-align: center;
+        text-wrap-style: wrap;
+    }
+
+    .abt-text h2 {
+        font-size: 20px;
+    }
+
+    .abt-text p {
+        font-size: 15px;
+        padding: 0 40px;
+        text-align: justify;
+    }
+
+    .abt-text button {
+        margin: 10px 0;
+    }
+
+    .features {
+        flex-direction: column;
+        margin: auto;
+        width: 100%;
+    }
+
+    .feature-cards {
+        flex-direction: column;
+        width: 80%;
+    }
+
+    .feature-card {
+        width: 100%;
+        margin: 20px 0;
+    }
+
+    .form {
+        flex-direction: column;
+        margin: 20px;
+    }
+
+    .form input, textarea {
+        width: 85%;
+    }
+
+    .form button {
+        width: 85%;
+        margin-top: 10px;
+        margin-left: 25px;
+    }
+}

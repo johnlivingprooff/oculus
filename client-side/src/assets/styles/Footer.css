@@ -78,3 +78,28 @@
 .subscribe button:hover {
     background-color: #297752;
 }
+
+/* mobile rendition  */
+@media only screen and (max-width: 768px) {
+    .buttom {
+        display: block;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .links ul {
+        display: none;
+    }
+
+    .footer-content {
+        display: block;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .subscribe {
+        margin-left: -15px;
+    }
+}

@@ -24,11 +24,11 @@ To get started with Oculus, follow these simple steps:
 4. Run the application using the command `npm start`.
 5. Access Oculus through your web browser at `http://localhost:3000`.
 
-For detailed documentation and API references, please refer to the [Oculus Wiki](https://github.com/your-username/oculus/wiki).
+For detailed documentation and API references, please refer to the [Oculus Wiki](https://github.com/johnlivingprooff/oculus/wiki).
 
 ## Contributing
 
-We welcome contributions from the community to make Oculus even better. To contribute, please follow our [contribution guidelines](https://github.com/your-username/oculus/blob/main/CONTRIBUTING.md).
+We welcome contributions from the community to make Oculus even better. To contribute, please follow our [contribution guidelines](https://github.com/johnlivingprooff/oculus/blob/main/CONTRIBUTING.md).
 
 ## License
 

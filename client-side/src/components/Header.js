@@ -14,7 +14,8 @@ function Header() {
           <li> <a href="#team">Our Team</a> </li>
           <li> <a href="#contact">Contact Us</a> </li>
         </ul>
-        <button> <Link to="/sign-up">LogIn / Register</Link> </button>
+        <button> <Link to="/login">LogIn</Link> </button> &nbsp;&nbsp;
+        <button> <Link to="/sign-up">Register</Link> </button>
         
       </div>
     </header>

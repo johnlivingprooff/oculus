@@ -45,7 +45,7 @@ function Login() {
         setErrors({});
 
         try {
-            const response = await fetch('/api/v1/users/auth', {
+            const response = await fetch('https://oculus-server.onrender.com/api/v1/users/auth', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

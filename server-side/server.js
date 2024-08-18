@@ -23,12 +23,16 @@ connectDB();
 // Create an instance of express application
 const app = express();
 
+//CORS options
+const corsOptions = {
+  origin: 'https://oculus-6zg7.onrender.com',
+  credentials: true,
+  optionsSuccessStatus: 200
+}
+
 // MIddlewares
 app.use(express.json());
-app.use(cors({
-  origin: 'https://oculus-6zg7.onrender.com',
-  credentials: 'true'
-}));
+app.use(cors(corsOptions));
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 

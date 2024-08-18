@@ -6,12 +6,12 @@ function Header () {
   const handleLogout = async () => {
     try {
       const response = await fetch('https://oculus-server.onrender.com/api/v1/users/logout', {
-        method: 'GET',
-        credentials: 'include'
+        method: 'POST',
+        credentials: 'include' // Ensure cookies (like the JWT) are sent with the request
       });
 
       if (response.ok) {
-        window.location.href = '/';
+        window.location.href = '/'; // Redirect to the home page after successful logout
       } else {
         console.error('Failed to logout');
       }
@@ -22,7 +22,7 @@ function Header () {
 
   return (
     <header className='top'>
-      <Link to={'/'}><h1>OCULUS</h1></Link>
+      <Link to='/'><h1>OCULUS</h1></Link>
       <div className='nav-bar'>
         <ul>
           <li> <Link to='/'>Home</Link> </li>

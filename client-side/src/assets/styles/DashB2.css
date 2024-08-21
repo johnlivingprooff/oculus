@@ -1,0 +1,234 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+/* Header Style */
+/* logo-icon */
+.h-all {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* background-color: pink; */
+    height: 10vh;
+    border-bottom: 1px solid #575757;
+}
+
+.o-logo {
+    margin: 0;
+    overflow: hidden;
+    padding: 20px 15px 20px;
+}
+
+.o-logo img {
+    width: 70px;
+    height: 70px;
+    transition: 0.3s ease-in-out;
+}
+
+.o-logo img:hover {
+    cursor: pointer;
+    scale: 1.05;
+}
+
+/* Navigation Style */
+.h-links {
+    display: flex;
+    text-align: center;
+    height: 10vh;
+    /* background-color: cyan; */
+    align-items: center;
+}
+
+.h-links a {
+    color: #000;
+    text-decoration: none;
+    padding: 10px 25px;
+    /* background-color: orange; */
+    display: block;
+}
+
+.h-links a:hover, .h-links a:active {
+    border-bottom:1px solid #777;
+    color: #000;
+    transition: 0.3s ease-in-out;
+}
+
+/* icon style */
+
+.h-icons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 45px;
+    /* background: #757575; */
+}
+
+.h-icons div {
+    padding: 10px 15px;
+}
+
+.h-icons div:hover {
+    cursor: pointer;
+}
+
+.search-icon, .bell-icon, .user-icon {
+    width: 30px;
+    height: 30px;
+}
+
+/* dash-body */
+.d-body {
+    background-image: url('../imgs/oak-icon-trans.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 95vh;
+    display: flex;
+    padding: 30px 20px;
+    /* background-color: #000; */
+    justify-content: space-between;
+}
+
+.l-block, .r-block, .m-block {
+    height: 95vh;
+    width: calc(35% - 35px);  
+    margin: calc(2% - 10px) calc(3.5% - 50px);  
+    /* background-color: orangered; */
+}
+
+.l-block, .m-block {
+    border-right: #163c08 solid 1px;
+}
+
+.l-block h1 {
+    font-family: "Poppins", sans-serif;
+    padding: 0 35px;
+    font-size: 45px;
+    /* background-color: greenyellow; */
+}
+
+.date-time {
+    font-family: "Poppins", sans-serif;
+    padding-left: 35px;
+    align-items: center;
+    /* background-color: cyan; */
+}
+
+.date-time img {
+    width: 20px;
+    height: 20px;
+    padding-right: 10px;
+}
+
+.weather-blck {
+    border: #163c08 1px solid;
+    border-radius: 15px;
+    margin: 0 35px;
+    margin-top: 15px;
+    background: transparent;
+    backdrop-filter: blur(10px);
+    height: auto;
+    width: auto;
+    padding: 10px;
+    padding-bottom: 35px;
+}
+
+.weather-blck p {
+    font-size: 14px;
+    padding-left: 18px;
+    margin-bottom: -2px;
+}
+
+.pin {
+    padding-left: 18px;
+    padding-top: 15px;
+    height: 25px;
+    width: 35px;
+    padding-right: 8px;
+}
+
+.weather-blck div {
+    display: flex;
+    align-items: center;
+}
+
+#a-fields {
+    height: 35px;
+    border: none;
+    /* border-bottom: #000 1px solid; */
+    margin-top: 15px;
+    padding: 5px 10px;
+    font-size: 15px;
+    width: 45%;
+    background: transparent;
+}
+
+#temp {
+    font-family: "New Amsterdam", sans-serif;
+    font-size: 120px;
+    font-weight: 500;
+    padding-left: 38px;
+}
+
+.w-info sup {
+    font-size: 20px;
+    font-family: "Poppins", sans-serif;
+    padding-left: 5px;
+}
+
+.w-icon {
+    width: 1000px;
+    height: 100px;
+}
+
+.ico-w {
+    width: 185px;
+    height: 185px;
+}
+
+.w-data {
+    display: flex;
+    padding: 0 18px;
+    margin-top: -25px;
+}
+
+.f-weather {
+    border: #163c08 1px solid;
+    border-radius: 15px;
+    margin: 0 35px;
+    margin-top: 15px;
+    background: transparent;
+    backdrop-filter: blur(10px);
+    height: auto;
+    width: auto;
+    padding: 10px;
+}
+
+.f-weather ul {
+    list-style-type: none;
+    display: flex;
+}
+
+.f-weather ul li {
+    font-size: 10px;
+    width: 19%;
+}
+
+.f-weather ul li b {
+    width: 25px;
+    height: 25px;
+    margin-top: 50px;
+}
+
+.ico-s {
+    width: 25px;
+    height: 25px;
+}
+
+.w-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 18px;
+}

@@ -136,6 +136,11 @@ body {
     padding-bottom: 35px;
 }
 
+.weather-blck select {
+    z-index: 10000;
+    cursor: pointer;
+}
+
 .weather-blck p {
     font-size: 14px;
     padding-left: 18px;
@@ -162,7 +167,7 @@ body {
     margin-top: 15px;
     padding: 5px 10px;
     font-size: 15px;
-    width: 45%;
+    width: 33%;
     background: transparent;
 }
 
@@ -171,25 +176,32 @@ body {
     font-size: 120px;
     font-weight: 500;
     padding-left: 38px;
+    /* background: #000; */
+    margin-top: -55px;
 }
 
 .w-info sup {
     font-size: 20px;
     font-family: "Poppins", sans-serif;
     padding-left: 5px;
+    margin-top: -55px;
+
 }
 
 .w-icon {
-    width: 1000px;
+    width: 100px;
     height: 100px;
 }
 
-.ico-w {
-    width: 185px;
-    height: 185px;
+.w-icon img {
+    width: 250px;
+    height: 250px;
+    margin-top: -60px;
+    margin-left: -55px;
+    filter: drop-shadow(0px 0px 20px #0000005f);
 }
 
-.w-data {
+.w-data span {
     display: flex;
     padding: 0 18px;
     margin-top: -25px;
@@ -381,6 +393,20 @@ body {
     background: transparent;
 }
 
+.popup-form-content textarea {
+    max-width: 80%;
+    width: 80%;
+    padding: 10px;
+    margin-left: 0px;
+    margin-bottom: 10px;
+    max-height: 250px;
+    height: 100px;
+}
+
+#log-title {
+    padding: 8px 8px 8px 10%;
+}
+
 .popup-form-content button {
     width: 90%;
     padding: 10px;
@@ -408,4 +434,142 @@ body {
 #crop {
     width: 30%;
     padding: 8px 8px 8px 12%;
+}
+
+#g-insight {
+    background: #163c08;
+    color: #fff;
+    border: none;
+    margin-bottom: 15px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#g-insight:hover {
+    background: #1b630c;
+}
+
+
+
+/* mobile view */
+@media screen and (max-width: 769px) {
+    .l-block, .r-block, .m-block {
+        width: calc(100% - 35px);
+        margin: 0 0;
+    }
+
+    .l-block, .m-block {
+        border-right: none;
+    }
+
+    .h-links {
+        display: none;
+    }
+
+    .h-icons {
+        margin-right: 0;
+    }
+
+    .d-body {
+        padding: 30px 10px;
+    }
+
+    .l-block h1 {
+        font-size: 35px;
+    }
+
+    .date-time {
+        padding-left: 10px;
+    }
+
+    .weather-blck {
+        margin: 0 10px;
+    }
+
+    .weather-blck p {
+        font-size: 12px;
+    }
+
+    .weather-blck div {
+        padding-left: 10px;
+    }
+
+    #temp {
+        font-size: 100px;
+    }
+
+    .w-info sup {
+        font-size: 18px;
+    }
+
+    .w-icon img {
+        width: 200px;
+        height: 200px;
+        margin-top: -50px;
+        margin-left: -45px;
+    }
+
+    .f-weather {
+        margin: 0 10px;
+    }
+
+    .f-weather ul li {
+        font-size: 8px;
+    }
+
+    .f-weather ul li b {
+        width: 20px;
+        height: 20px;
+    }
+
+    .w-flex {
+        padding-right: 10px;
+    }
+
+    .m-block {
+        margin: 0 10px;
+    }
+
+    .map {
+        margin-right: 10px;
+    }
+
+    .f-over {
+        padding: 0 10px;
+    }
+
+    .f-over h5 {
+        font-size: 14px;
+    }
+
+    .f-data p {
+        font-size: 12px;
+    }
+
+    .log-t {
+        padding: 0 10px;
+    }
+
+    .log-t i {
+        font-size: 10px;
+    }
+
+    .popup-form-content {
+        width: 300px;
+    }
+
+    .popup-form-content input {
+        width: 80%;
+        padding: 8px 8px 8px 15%;
+    }
+
+    .popup-form-content select {
+        width: 60%;
+        padding: 8px 8px 8px 8px;
+    }
+
+    .popup-form-content textarea {
+        max-width: 90%;
+        width: 90%;
+    }
 }

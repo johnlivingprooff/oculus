@@ -17,13 +17,19 @@ function Dashboard2() {
 
     // African Cities
     const africanCities = [
-        "Abuja", "Accra", "Addis Ababa", "Algiers", "Asmara", "Bamako", "Bangui", "Brazzaville", 
-        "Bujumbura", "Cairo", "Casablanca", "Conakry", "Dakar", "Dodoma", "Douala", "Durban", 
-        "Freetown", "Gaborone", "Harare", "Johannesburg", "Kampala", "Kinshasa", "Kinsasha", 
-        "Lagos", "Libreville", "Lilongwe", "Lomé", "Luanda", "Lusaka", "Malabo", "Maputo", "Maseru", "Mbabane", 
-        "Mogadishu", "Monrovia", "Nairobi", "Niamey", "Nouakchott", "Ouagadougou", "Port Louis", 
-        "Rabat", "San Salvador", "Sao Tome", "Tunis", "Victoria Island", "Windhoek"
-    ];
+        "Abidjan", "Abuja", "Accra", "Addis Ababa", "Alexandria", "Antananarivo", "Aswan", "Asmara",
+        "Bamako", "Bangui", "Benghazi", "Bloemfontein", "Brazzaville", "Bujumbura",
+        "Cairo", "Cape Town", "Casablanca", "Conakry", "Dar es Salaam", "Dodoma", "Douala", "Durban",
+        "Entebbe", "Freetown", "Gaborone", "Gaborone", "Harare", "Harare", "Johannesburg", "Kampala",
+        "Khartoum", "Kigali", "Kinshasa", "Kinshasa", "Kumasi", "Lagos", "Libreville", "Lilongwe",
+        "Lomé", "Luanda", "Luanda", "Lusaka", "Lusaka", "Malabo", "Malabo", "Maputo", "Maputo",
+        "Maseru", "Maseru", "Mbabane", "Mbabane", "Mogadishu", "Mogadishu", "Monrovia", "Monrovia",
+        "Nairobi", "Nairobi", "Ndola", "Niamey", "Nouakchott", "Ouagadougou", "Ouagadougou", "Port Elizabeth",
+        "Port Louis", "Pretoria", "Rabat", "Rabat", "Salisbury", "San Salvador", "Sebastopol", "Sao Tome",
+        "Tamale", "The Hague", "Tunis", "Tunis", "Tripoli", "Ulaanbaatar", "Victoria Island", "Windhoek",
+        "Windhoek"
+      ];
+      
 
     // get date & time
     const now = new Date();
@@ -54,6 +60,19 @@ function Dashboard2() {
         crop: '',
         fieldLog: []
     });
+    const [showLogForm, setShowLogForm] = useState(false);
+    const [newLog, setNewLog] = useState({
+        title: '',
+        description: '',
+    });
+    const [errors, setErrors] = useState({});
+    const [marketInsights, setMarketInsights] = useState(null);
+
+    const mapContainer = {
+        height: "100%",
+        width: "100%"
+    };
+
 
     useEffect(() => {
         fetchFields();
@@ -67,7 +86,7 @@ function Dashboard2() {
 
     const fetchFields = async () => {
         try {
-            const response = await fetch('https://oculus-server.onrender.com/api/v1/fields/list_fields', {
+            const response = await fetch('http://localhost:3010/api/v1/fields/list_fields', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -86,7 +105,7 @@ function Dashboard2() {
 
     const getWeatherData = async (location) => {
         try {
-            const response = await fetch(`https://oculus-server.onrender.com/api/v1/weather?location=${location}`, {
+            const response = await fetch(`http://localhost:3010/api/v1/weather?location=${location}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -104,20 +123,22 @@ function Dashboard2() {
 
     const extractDailyForecast = (data) => {
         const dailyData = {};
+    
         data.list.forEach((entry) => {
             const date = new Date(entry.dt_txt).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
-
+    
             if (!dailyData[date]) {
                 dailyData[date] = {
-                    temp: entry.main.temp,
+                    temp: Math.round(entry.main.temp), // Round temperature to the nearest integer
                     weather: entry.weather[0].description,
                     icon: entry.weather[0].icon,
                 };
             }
         });
-
+    
         return Object.entries(dailyData).slice(0, 5).map(([date, data]) => ({ date, ...data }));
     };
+    
 
     const handleFieldChange = (e) => {
         const { name, value } = e.target;
@@ -130,7 +151,7 @@ function Dashboard2() {
     const handleAddField = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('https://oculus-server.onrender.com/api/v1/fields/add_field', {
+            const response = await fetch('http://localhost:3010/api/v1/fields/add_field', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -168,6 +189,111 @@ function Dashboard2() {
         setShowFieldForm(!showFieldForm);
     };
 
+    // Adding Logs to fields
+    const handleLogChange = (e) => {
+        const { name, value } = e.target;
+        setNewLog({
+            ...newLog,
+            [name]: value
+        });
+    };
+
+    const handleAddLog = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await fetch(`http://localhost:3010/api/v1/fields/${selectedField._id}/add_log`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify(newLog)
+            });
+            const data = await response.json();
+
+            if (response.ok) {
+                setSelectedField(prevField => ({
+                    ...prevField,
+                    fieldLog: [...prevField.fieldLog, data]
+                }));
+                setNewLog({
+                    title: '',
+                    description: ''
+                });
+                setShowLogForm(false);
+                window.location.reload();
+            } else {
+                console.error('Error adding log');
+            }
+        } catch (error) {
+            console.error('Error adding log:', error);
+        }
+    };
+
+    const handleLogFormToggle = () => {
+        setShowLogForm(!showLogForm);
+    };
+
+    // Get Market Insights
+    const handleGetInsights = async () => {
+        if (!selectedField) {
+            setErrors({ apiError: 'No field selected' });
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:3010/api/v1/fields/${selectedField._id}/market_insights`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+            
+            const data = await response.json();
+
+            if (response.ok) {
+                setMarketInsights(data);
+                setSelectedField(prevField => ({
+                    ...prevField,
+                    marketInsights: data
+                }));
+                window.location.reload();
+            } else {
+                setErrors({ apiError: data.message });
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            setErrors({ apiError: 'An error occurred. Please try again.' });
+        }
+    };
+
+    const getDemandClass = (demand) => {
+        switch (demand.toLowerCase()) {
+            case 'low':
+                return 'demand-low';
+            case 'medium':
+                return 'demand-medium';
+            case 'high':
+                return 'demand-high';
+            default:
+                return '';
+        }
+    };
+
+    const getSupplyClass = (supply) => {
+        switch (supply.toLowerCase()) {
+            case 'low':
+                return 'supply-low';
+            case 'medium':
+                return 'supply-medium';
+            case 'high':
+                return 'supply-high';
+            default:
+                return '';
+        }
+    };
+
     return (
         <div>
             <Helmet>
@@ -188,7 +314,13 @@ function Dashboard2() {
                         <hr width="90%" />
                         <div>
                             <MdLocationPin className='pin' />
-                            <select name="fieldLocations" id="a-fields" onChange={handleFieldSelection} value={selectedField ? selectedField.fieldName : ''}>
+                            <select
+                                name="fieldLocations"
+                                id="a-fields"
+                                onChange={handleFieldSelection}
+                                value={selectedField ? selectedField.fieldName : ''}
+                            >
+                                <option value="">Select Field</option>
                                 {fields.map((field) => (
                                     <option key={field._id} value={field.fieldName} id='options'>
                                         {field.fieldName}
@@ -196,27 +328,37 @@ function Dashboard2() {
                                 ))}
                             </select>
                         </div>
+                        
                         {selectedField ? (
                             weatherData ? (
-                            <div className="w-info">
-                                <div><span id="temp">
-                                    {weatherData.main.temp}
-                                </span><sup>ºC</sup></div>
-                                <div className='w-icon'>
-                                    <img src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`} alt='weather-icon' className='ico-w'/>
+                                <div className="w-info">
+                                    <div>
+                                        <span id="temp">
+                                            {parseInt(weatherData.list[0].main.temp)}
+                                        </span>
+                                        <sup>ºC</sup>
+                                    </div>
+                                    <div className='w-icon'>
+                                        <img
+                                            src={`https://openweathermap.org/img/wn/${weatherData.list[0].weather[0].icon}@4x.png`}
+                                            alt='weather-icon'
+                                        />
+                                    </div>
                                 </div>
-                            </div>
-                            
-                                ) : (
-                                    <p>Loading weather data...</p>
-                                )
                             ) : (
-                                <p>...</p>
+                                <p>Loading weather data...</p>
+                            )
+                        ) : (
+                            <p>...</p>
                         )}
+
                         <span className="w-data">
-                            {selectedField ?(
+                            {selectedField ? (
                                 weatherData ? (
-                                    <span><p><b>WS:</b> {weatherData.wind.speed}m/s</p><p><b>P:</b> {weatherData.main.pressure}hpa</p></span>
+                                    <span>
+                                        <p><b>WS:</b> {weatherData.list[0].wind.speed} m/s</p>
+                                        <p><b>P:</b> {weatherData.list[0].main.pressure} hPa</p>
+                                    </span>
                                 ) : (
                                     <p>Loading Data ...</p>
                                 )
@@ -225,38 +367,57 @@ function Dashboard2() {
                             )}
                         </span>
                     </div>
+
                     <div className="f-weather">
                         <ul>
-                            {weatherForecast.length > 0 ? (
+                            {weatherForecast && weatherForecast.length > 0 ? (
                                 weatherForecast.map((forecast, index) => (
                                     <li key={index}>
-                                        <div className='w-flex'>
-                                            <img src={`https://openweathermap.org/img/wn/${forecast.icon}@2x.png`} alt='weather-icon' className='ico-s' />
-                                            {forecast.date}
+                                        <div className="w-flex">
+                                            {forecast.icon ? (
+                                                <img
+                                                    src={`https://openweathermap.org/img/wn/${forecast.icon}@4x.png`}
+                                                    alt="weather-icon"
+                                                    className="ico-s"
+                                                />
+                                            ) : (
+                                                <div className="placeholder-icon">N/A</div> 
+                                            )}
+                                            {forecast.date ? forecast.date : 'N/A'}
                                         </div>
-                                        <b>{forecast.temp}ºC</b>
+                                        <b>{forecast.temp ? `${forecast.temp}ºC` : 'N/A'}</b> 
                                     </li>
                                 ))
                             ) : (
-                                <p>Loading weather data...</p>
+                                <li>No forecast data available</li> 
                             )}
                         </ul>
                     </div>
+
+
                 </div>
+
                 <div className="m-block">
-                    <h5><b>Map Overview</b> - Location</h5>
+                    {selectedField ? (
+                        <h5><b>Map Overview</b> - {selectedField.fieldLocation}</h5>
+                    ) : (
+                        <h5><b>Map Overview</b> - Location</h5>
+                    )}
                     <div className="map">
-                    {/* <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
-                        <GoogleMap
+                    {weatherData && (
+                        <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
+                            <GoogleMap
                             mapContainerStyle={mapContainer}
-                            center={{ lat: 6.5244, lng: 3.3792 }}
-                            zoom={50}
-                        >
+                            center={{ lat: weatherData.city.coord.lat, lng: weatherData.city.coord.lon }}
+                            zoom={10}
+                            >
                             <></>
-                        </GoogleMap>
-                    </LoadScript> */}
+                            </GoogleMap>
+                        </LoadScript>
+                    )}
                     </div>
                 </div>
+
                 <div className="r-block">
                     <div className="f-over">
                         <span className="log-t">
@@ -308,28 +469,67 @@ function Dashboard2() {
                     <div className="f-over">
                         <span className="log-t">
                             <h5>Farm Logs</h5>
-                            <i><FaPlus id='add-log' /> Add log</i>
+                            <i onClick={handleLogFormToggle}><FaPlus id='add-log' /> Add log</i>
                         </span>
-                        <div className="f-data">
-                            <p><b>Logs:</b> 5 &nbsp;&nbsp;|&nbsp;&nbsp;
-                            <b>Issues:</b> 2<br />
-                            <b>Harvest:</b> 10 tons &nbsp;&nbsp;|&nbsp;&nbsp;
-                            <b>Yield:</b> 20 tons</p>
-                        </div>
+                        {selectedField ? (
+                            selectedField.fieldLog.length > 0 ? (
+                                selectedField.fieldLog.map((log, index) => (
+                                    <div className="f-data" key={index}>
+                                        <p>
+                                            <b>{log.title}</b>
+                                            {log.description}
+                                        </p>
+                                    </div>
+                                ))
+                            ) : (
+                                <p>No logs added</p>
+                            )
+                        ) : (
+                            <p>No field selected</p>
+                        )}
                     </div>
+                    {/* Pop-up Form */}
+                    {showLogForm && (
+                        <div className="popup-form">
+                            <div className="popup-form-content">
+                                <span className="close" onClick={handleLogFormToggle}><IoCloseCircleSharp /></span>
+                                <h2>Add New Log</h2>
+                                <form onSubmit={handleAddLog}>
+                                    <label>Title:</label>
+                                    <input type="text" name="title" value={newLog.title} onChange={handleLogChange} required id='log-title' />
+                                    
+                                    <textarea name="description" value={newLog.description} onChange={handleLogChange} required placeholder='Write your Notes Here' />
+                                    
+                                    <button type="submit">Add Log</button>
+                                </form>
+                            </div>
+                        </div>
+                    )}
                     <div className="f-over">
                         <span className="log-t">
                             <h5>Market Insight</h5>
-                            <i><MdRefresh id='add-log' /> refresh</i>
+                            <i onClick={handleGetInsights}><MdRefresh id='add-log' /> refresh</i>
                         </span>
-                        <div className="f-data">
-                            <p><b>Demand:</b> High &nbsp;&nbsp;|&nbsp;&nbsp;
-                            <b>Supply:</b> Avg<br />
-                            <b>Market Price:</b> $15/kg </p>
-                        </div>
+                        {selectedField ? (
+                            selectedField.marketInsights ? (
+                                <div className="f-data">
+                                    <p><i className={getDemandClass(selectedField.marketInsights.demand)}><b>Demand:</b> {selectedField.marketInsights.demand}</i> &nbsp;&nbsp;|&nbsp;&nbsp;
+                                    <i className={getSupplyClass(selectedField.marketInsights.supply)}><b>Supply:</b> {selectedField.marketInsights.supply}<br /></i>
+                                    <b>Market Price:</b> ${selectedField.marketInsights.currentPrice}/kg </p>
+                                </div>
+                            ) : (
+                                <>
+                                    <p>No market insights available</p>
+                                    <button id='g-insight' onClick={handleGetInsights}>Get Insights</button>
+                                </>
+                            )
+                        ) : (
+                            <p>No field selected</p>
+                        )}
                     </div>
                 </div>
             </div>
+            {/* <i>Converted Prejudice is on the Menu</i> */}
             <Footer />
         </div>
     );

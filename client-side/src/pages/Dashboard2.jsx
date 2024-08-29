@@ -86,7 +86,7 @@ function Dashboard2() {
 
     const fetchFields = async () => {
         try {
-            const response = await fetch('http://localhost:3010/api/v1/fields/list_fields', {
+            const response = await fetch('https://oculus-server.onrender.com/api/v1/fields/list_fields', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -105,7 +105,7 @@ function Dashboard2() {
 
     const getWeatherData = async (location) => {
         try {
-            const response = await fetch(`http://localhost:3010/api/v1/weather?location=${location}`, {
+            const response = await fetch(`https://oculus-server.onrender.com/api/v1/weather?location=${location}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -151,7 +151,7 @@ function Dashboard2() {
     const handleAddField = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:3010/api/v1/fields/add_field', {
+            const response = await fetch('https://oculus-server.onrender.com/api/v1/fields/add_field', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -201,7 +201,7 @@ function Dashboard2() {
     const handleAddLog = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`http://localhost:3010/api/v1/fields/${selectedField._id}/add_log`, {
+            const response = await fetch(`https://oculus-server.onrender.com/api/v1/fields/${selectedField._id}/add_log`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -242,7 +242,7 @@ function Dashboard2() {
         }
 
         try {
-            const response = await fetch(`http://localhost:3010/api/v1/fields/${selectedField._id}/market_insights`, {
+            const response = await fetch(`https://oculus-server.onrender.com/api/v1/fields/${selectedField._id}/market_insights`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

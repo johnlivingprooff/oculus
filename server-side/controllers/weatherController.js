@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 const apiKey = process.env.WEATHER_API_KEY;
-const baseUrl = 'https://api.openweathermap.org/data/2.5/weather';
+const baseUrl = 'https://api.openweathermap.org/data/2.5/forecast';
 
 // Helper function for fetching weather data
 const getWeather = async (location) => {

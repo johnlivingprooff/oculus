@@ -57,7 +57,7 @@ function Register() {
         setErrors({});
 
         try {
-            const response = await fetch('https://oculus-server.onrender.com/api/v1/users/', {
+            const response = await fetch('http://localhost:3010/api/v1/users/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -79,7 +79,7 @@ function Register() {
 
             if (response.ok) {
                 // alert('Registration successful');
-                navigate('/dashboard');
+                navigate('/dashboard-two');
             } else {
                 setErrors({ apiError: data.message });
             }

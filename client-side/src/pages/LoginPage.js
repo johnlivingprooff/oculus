@@ -45,7 +45,7 @@ function Login() {
         setErrors({});
 
         try {
-            const response = await fetch('https://oculus-server.onrender.com/api/v1/users/auth', {
+            const response = await fetch('http://localhost:3010/api/v1/users/auth', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -71,7 +71,7 @@ function Login() {
                 console.log('Login successful, token stored in localStorage:', token);
                 console.log('Local Token:', localStorage.getItem('token'));
                 // Redirect to the home page or dashboard
-                navigate('/dashboard');
+                navigate('/dashboard-two');
             } else {
                 setErrors({ apiError: data.message });
             }

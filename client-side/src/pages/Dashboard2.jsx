@@ -529,7 +529,6 @@ function Dashboard2() {
                     </div>
                 </div>
             </div>
-            {/* <i>Converted Prejudice is on the Menu</i> */}
             <Footer />
         </div>
     );

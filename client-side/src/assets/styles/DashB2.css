@@ -12,6 +12,7 @@ body {
     /* background-color: pink; */
     height: 10vh;
     border-bottom: 1px solid #575757;
+    width: 100%;
 }
 
 .o-logo {
@@ -75,6 +76,10 @@ body {
 .search-icon, .bell-icon, .user-icon {
     width: 30px;
     height: 30px;
+}
+
+.menu-icon {
+    display: none;
 }
 
 /* dash-body */
@@ -452,124 +457,192 @@ body {
 
 
 /* mobile view */
-@media screen and (max-width: 769px) {
-    .l-block, .r-block, .m-block {
-        width: calc(100% - 35px);
-        margin: 0 0;
+@media screen and (max-width: 1024px) {
+    /* header */
+    .h-all {
+        height: 10vh;
     }
-
-    .l-block, .m-block {
-        border-right: none;
+    .o-logo {
+        width: 15%;
     }
-
     .h-links {
         display: none;
     }
-
+    .hidden {
+        display: none;
+    }
     .h-icons {
-        margin-right: 0;
+        margin-right: -4%;
     }
-
+    .h-menu {
+        position: absolute;
+        display: block;
+        width: 20%;
+        right: 0;
+        top: 0;
+        background: #0000005f;
+        color: #ffffff;
+        padding: 25px 40px 15px 25px;
+        height: 100%;
+        margin: 0;
+        backdrop-filter: blur(10px);
+        z-index: 1000;
+    }
+    .times {
+        color: rgb(154, 50, 50);
+        font-size: 35px;
+    }
+    .menu-icon {
+        display: block;
+        width: 30px;
+        height: 30px;
+        margin-right: 25px;
+    }
+    .h-menu div {
+        padding: 10px 0;
+    }
+    /* body */
     .d-body {
-        padding: 30px 10px;
+        /* display: block; */
+        width: 100%;
+        align-items: center;
+        height: fit-content;
     }
-
+    .l-block, .r-block, .m-block {
+        width: 50%;
+        margin: 0;
+        border: none;
+        padding: 0;
+        
+    }
     .l-block h1 {
         font-size: 35px;
     }
 
-    .date-time {
-        padding-left: 10px;
+    .l-block, .r-block {
+        margin-bottom: 0;
+        height: fit-content;
     }
 
-    .weather-blck {
-        margin: 0 10px;
+    .m-block {
+        display: none;
     }
 
-    .weather-blck p {
-        font-size: 12px;
+    .r-block {
+        margin: 0 30px;
     }
 
-    .weather-blck div {
-        padding-left: 10px;
+
+    #a-fields {
+        width: 50%;
+    }
+
+    .w-icon img {
+        width: 250px;
+        height: 250px;
+        margin-left: -65px;
+        filter: drop-shadow(0px 0px 20px #0000005f);
     }
 
     #temp {
         font-size: 100px;
+        padding-left: 25px;
+        margin-top: -55px;
     }
+}
 
-    .w-info sup {
-        font-size: 18px;
-    }
-
-    .w-icon img {
-        width: 200px;
-        height: 200px;
-        margin-top: -50px;
-        margin-left: -45px;
-    }
-
-    .f-weather {
-        margin: 0 10px;
-    }
-
-    .f-weather ul li {
-        font-size: 8px;
-    }
-
-    .f-weather ul li b {
-        width: 20px;
-        height: 20px;
-    }
-
-    .w-flex {
-        padding-right: 10px;
-    }
-
-    .m-block {
-        margin: 0 10px;
-    }
-
-    .map {
-        margin-right: 10px;
-    }
-
-    .f-over {
-        padding: 0 10px;
-    }
-
-    .f-over h5 {
-        font-size: 14px;
-    }
-
-    .f-data p {
-        font-size: 12px;
-    }
-
-    .log-t {
-        padding: 0 10px;
-    }
-
-    .log-t i {
-        font-size: 10px;
-    }
-
-    .popup-form-content {
-        width: 300px;
-    }
-
-    .popup-form-content input {
-        width: 80%;
-        padding: 8px 8px 8px 15%;
-    }
-
-    .popup-form-content select {
-        width: 60%;
-        padding: 8px 8px 8px 8px;
-    }
-
-    .popup-form-content textarea {
-        max-width: 90%;
-        width: 90%;
-    }
+@media screen and (max-width: 426px) {
+        /* header */
+        .h-all {
+            height: 10vh;
+        }
+        .o-logo {
+            width: 15%;
+            margin-top: 10px;
+        }
+        .h-links {
+            display: none;
+        }
+        .hidden {
+            display: none;
+        }
+        .h-icons {
+            margin-right: -7%;
+            margin-top: 10px;
+        }
+        .h-menu {
+            position: absolute;
+            display: block;
+            width: 20%;
+            right: 0;
+            top: 0;
+            background: #0000005f;
+            color: #ffffff;
+            padding: 25px 40px 15px 25px;
+            height: 100%;
+            margin: 0;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+        .times {
+            color: rgb(154, 50, 50);
+            font-size: 35px;
+        }
+        .menu-icon {
+            display: block;
+            width: 30px;
+            height: 30px;
+            margin-right: 25px;
+        }
+        .h-menu div {
+            padding: 10px 0;
+        }
+        /* body */
+        .d-body {
+            display: block;
+            width: 100%;
+            align-items: center;
+            height: fit-content;
+        }
+        .l-block, .r-block, .m-block {
+            width: 90%;
+            margin: 0;
+            border: none;
+            padding: 0;
+            
+        }
+        .l-block h1 {
+            font-size: 35px;
+        }
+    
+        .l-block, .r-block {
+            margin-bottom: 0;
+            height: fit-content;
+        }
+    
+        .m-block {
+            display: none;
+        }
+    
+        .r-block {
+            margin: 0 30px;
+        }
+    
+    
+        #a-fields {
+            width: 50%;
+        }
+    
+        .w-icon img {
+            width: 250px;
+            height: 250px;
+            margin-left: -65px;
+            filter: drop-shadow(0px 0px 20px #0000005f);
+        }
+    
+        #temp {
+            font-size: 100px;
+            padding-left: 25px;
+            margin-top: -55px;
+        }
 }

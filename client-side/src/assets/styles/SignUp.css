@@ -1,0 +1,104 @@
+.bdy {
+    background: url('../imgs/about-img.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.overlay {
+    background: rgba(0, 0, 0, 0.5);
+    height: 100vh;
+}
+
+.f-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.f-box form {
+    background: transparent;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    backdrop-filter: blur(10px);
+    border: 1px solid white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 5px rgba(18, 18, 18, 0.5);
+}
+
+.f-box form h3 {
+    color: white;
+    font-size: 1.6rem;
+    margin-bottom: 0;
+    text-transform: uppercase;
+}
+
+.f-box form i {
+    color: white;
+    font-size: 0.6rem;
+    margin-bottom: 10px;
+}
+
+.f-box form div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.f-box form div input {
+    width: 80%;
+    padding: 10px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.f-box form div input:focus {
+    outline: none;
+}
+
+.f-box form button {
+    width: 40%;
+    padding: 10px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    background: white;
+    color: green;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.f-box form button:hover {
+    background: green;
+    color: white;
+}
+
+.sigh {
+    color: white;
+    font-size: 0.8rem;
+    margin-top: 10px;
+    text-decoration: none;
+}
+
+.sigh a {
+    color: white;
+    text-decoration: none;
+}
+
+.sigh a:hover {
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 768px) {
+    .f-box form {
+        width: 80%;
+    }
+    
+}

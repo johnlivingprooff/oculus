@@ -1,11 +1,11 @@
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 
-const maxAge = 3 * 24 * 60 * 60;
-
-const createToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: maxAge,
-  });
+const createAccessToken = (userId) => {
+  return jwt.sign({ id: userId }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
 };
 
-module.exports = createToken;
+const createRefreshToken = (userId) => {
+  return jwt.sign({ id: userId }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' });
+};
+
+module.exports = { createAccessToken, createRefreshToken };

@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext';
 
 // Create an axios instance
 const api = axios.create({
-    baseURL: process.env.REACT_APP_API_BASE_URL || 'http://localhost:3010/api/v1', // Backend base URL
+    baseURL: process.env.REACT_APP_API_BASE_URL || 'https://oculus-server.onrender.com/api/v1', // Backend base URL
     withCredentials: true, // Include cookies in requests
 });
 

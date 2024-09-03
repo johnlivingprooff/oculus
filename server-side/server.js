@@ -25,7 +25,7 @@ const app = express();
 
 //CORS options
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: 'https://oculus-6zg7.onrender.com',
   credentials: true,
   optionsSuccessStatus: 200
 }

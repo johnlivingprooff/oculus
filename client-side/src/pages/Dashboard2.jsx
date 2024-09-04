@@ -18,6 +18,7 @@ function Dashboard2() {
 
     // Get Access Token from AuthContext
     const { accessToken } = useAuth();
+    console.log('Access Token:', accessToken);
 
     // African Cities
     const africanCities = [
@@ -101,6 +102,7 @@ function Dashboard2() {
             });
             const data = await response.json();
             setFields(data);
+
             if (data.length > 0) {
                 setSelectedField(data[0]);
             }
@@ -161,7 +163,7 @@ function Dashboard2() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    'Authorization': `Bearer ${accessToken}`
                 },
                 body: JSON.stringify(newField)
             });
@@ -211,7 +213,7 @@ function Dashboard2() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    'Authorization': `Bearer ${accessToken}`
                 },
                 body: JSON.stringify(newLog)
             });
@@ -252,7 +254,7 @@ function Dashboard2() {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    'Authorization': `Bearer ${accessToken}`
                 }
             });
             

@@ -128,7 +128,7 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const interval = setInterval(() => {
             refreshToken();
-        }, 15 * 60 * 1000); // 15 minutes
+        }, 3 * 24 * 60 * 60 * 1000); // 15 minutes
 
         return () => clearInterval(interval); // Cleanup on unmount
     }, []);

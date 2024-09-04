@@ -10,6 +10,9 @@ const getDashboardData = async (req, res) => {
     const userId = req.user.id;
 
     try {
+        // fetch user data
+        // const user = await User.findById(userId);
+
         // fetch fields data
         const fields = await Field.find({ userId });
 
@@ -19,6 +22,7 @@ const getDashboardData = async (req, res) => {
 
         // organize data for front end
         const dashboardData = {
+            // user,
             fields,
             weather: weatherData
         };

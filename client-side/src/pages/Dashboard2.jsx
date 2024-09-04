@@ -34,7 +34,7 @@ function Dashboard2() {
       
 
     // get date & time
-    const now = new Date();
+    // const now = new Date();
 
     const formatDateTime = (date) => {
         const shortDay = date.toLocaleString('en-US', { weekday: 'short' });
@@ -54,6 +54,7 @@ function Dashboard2() {
     const { accessToken } = useAuth();
     // console.log('Access Token:', accessToken); // just for debugging
 
+    // const [userData, setUserData] = useState(null);
     const [fields, setFields] = useState([]);
     const [selectedField, setSelectedField] = useState(null);
     const [weatherData, setWeatherData] = useState([]);
@@ -100,6 +101,7 @@ function Dashboard2() {
             }
 
             const data = await response.json();
+            // setUserData(data.user);
             setFields(data.fields);
             setWeatherData(data.weather);
             if (data.fields.length > 0) {
@@ -300,9 +302,9 @@ function Dashboard2() {
                         {formatDateTime(new Date())}
                     </span>
                     <div className="weather-blck">
-                        <p>Weather</p>
+                        <p>Welcome to Oculus</p>
                         <hr width="90%" />
-                        <div>
+                        <div id='select-blck'>
                             <MdLocationPin className='pin' />
                             <select
                                 name="fieldLocations"
@@ -346,7 +348,7 @@ function Dashboard2() {
                             {selectedField ? (
                                 weatherForecast.length > 0 ? (
                                     <span>
-                                        <p><b>WS:</b> {weatherForecast[0].weather}</p>
+                                        <p> {weatherForecast[0].weather} </p>
                                     </span>
                                 ) : (
                                     <p>Loading Data ...</p>

@@ -8,11 +8,13 @@ import { useAuth } from '../context/AuthContext';
 
 function DashHead() {
   // Get Username
-  const { user } = useAuth();
-  const username = user.username;
+  const { logout } = useAuth();
+  
   // State to manage menu visibility
   const [isMenuVisible, setMenuVisible] = useState(false);
   const [userMenu, setUserMenu] = useState(false);
+
+  
 
   // Toggle menu visibility
   const toggleMenu = () => {
@@ -21,6 +23,15 @@ function DashHead() {
 
   const toggleUserMenu = () => {
     setUserMenu(!userMenu);
+  }
+
+  // logout user
+  const handlelogOut = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      console.error('Logout failed:', error.message);
+    }
   }
 
   return (
@@ -41,10 +52,10 @@ function DashHead() {
         <div><FaCircleUser className="user-icon" onClick={toggleUserMenu} />
           {userMenu && (
             <div id='user-menu'>
-              <div id='user-name'>Hi! {username}</div>
+              <div id='user-name'>Hi!</div>
               <div>Profile</div>
               <div>Settings</div>
-              <div>Logout</div>
+              <div onClick={handlelogOut}>Logout</div>
             </div>
           )}
         </div>

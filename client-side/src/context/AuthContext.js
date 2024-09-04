@@ -75,31 +75,51 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-    // Logout function
     const logout = async () => {
         try {
-            await axios.post('/users/auth/logout');
-
+            const response = await fetch('https://oculus-server.onrender.com/api/v1/users/auth/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include' // If you need to include cookies
+            });
+    
+            if (!response.ok) {
+                throw new Error(`Logout failed with status: ${response.status}`);
+            }
+    
             setAccessToken(null);
             setUser(null);
             setIsAuthenticated(false);
-
+    
             // Redirect to home page
             navigate('/');
         } catch (error) {
-            console.error('Logout failed:', error.response?.data?.message || error.message);
+            console.error('Logout failed:', error.message);
         }
     };
-
-    // Refresh token function
+    
     const refreshToken = async () => {
         try {
-            const response = await axios.post('/users/auth/refresh-token');
-            const { accessToken } = response.data;
-
+            const response = await fetch('https://oculus-server.onrender.com/api/v1/users/auth/refresh-token', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include' // If you need to include cookies
+            });
+    
+            if (!response.ok) {
+                throw new Error(`Token refresh failed with status: ${response.status}`);
+            }
+    
+            const data = await response.json();
+            const { accessToken } = data;
+    
             setAccessToken(accessToken);
         } catch (error) {
-            console.error('Token refresh failed:', error.response?.data?.message || error.message);
+            console.error('Token refresh failed:', error.message);
             logout();
         }
     };

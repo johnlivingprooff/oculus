@@ -16,10 +16,7 @@ import { useAuth } from '../context/AuthContext';
 
 function Dashboard2() {
 
-    // Get Access Token from AuthContext
-    const { accessToken } = useAuth();
-    console.log('Access Token:', accessToken);
-
+    
     // African Cities
     const africanCities = [
         "Abidjan", "Abuja", "Accra", "Addis Ababa", "Alexandria", "Antananarivo", "Aswan", "Asmara",
@@ -52,10 +49,13 @@ function Dashboard2() {
         return `${shortDay}-${dayOfMonth}, ${month} ${year} | ${formattedHours}:${minutes}${ampm}`;
     };
 
-    // Data for interactive site
+
+    // Get Access Token from AuthContext
+    const { accessToken } = useAuth();
+
     const [fields, setFields] = useState([]);
     const [selectedField, setSelectedField] = useState(null);
-    const [weatherData, setWeatherData] = useState(null);
+    const [weatherData, setWeatherData] = useState([]);
     const [weatherForecast, setWeatherForecast] = useState([]);
     const [showFieldForm, setShowFieldForm] = useState(false);
     const [newField, setNewField] = useState({
@@ -78,63 +78,47 @@ function Dashboard2() {
         width: "100%"
     };
 
-
     useEffect(() => {
         if (accessToken) {
-            fetchFields();
+            fetchDashboardData();
         }
     }, [accessToken]);
 
-    useEffect(() => {
-        if (selectedField && accessToken) {
-            getWeatherData(selectedField.fieldLocation);
-        }
-    }, [selectedField, accessToken]);
-
-    const fetchFields = async () => {
+    const fetchDashboardData = async () => {
         try {
-            const response = await fetch('https://oculus-server.onrender.com/api/v1/fields/list_fields', {
+            const response = await fetch('https://oculus-server.onrender.com/api/v1/dashboard', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${accessToken}`
                 }
             });
-            const data = await response.json();
-            setFields(data);
 
-            if (data.length > 0) {
-                setSelectedField(data[0]);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            setFields(data.fields);
+            setWeatherData(data.weather);
+            if (data.fields.length > 0) {
+                setSelectedField(data.fields[0]);
+                const firstFieldWeather = data.weather.length > 0 ? data.weather[0] : null;
+                setWeatherForecast(extractDailyForecast(firstFieldWeather));
             }
         } catch (error) {
-            console.error('Error fetching fields:', error);
+            console.error('Error fetching dashboard data:', error);
         }
     };
 
-    const getWeatherData = async (location) => {
-        try {
-            const response = await fetch(`https://oculus-server.onrender.com/api/v1/weather?location=${location}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${accessToken}`
-                }
-            });
-            const data = await response.json();
-            setWeatherData(data);
-            const dailyForecast = extractDailyForecast(data);
-            setWeatherForecast(dailyForecast);
-        } catch (error) {
-            console.error('Error fetching weather data:', error);
-        }
-    };
-
-    const extractDailyForecast = (data) => {
+    const extractDailyForecast = (weatherData) => {
         const dailyData = {};
-    
-        data.list.forEach((entry) => {
+
+        if (!weatherData || !weatherData.list) return [];
+
+        weatherData.list.forEach((entry) => {
             const date = new Date(entry.dt_txt).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
-    
+
             if (!dailyData[date]) {
                 dailyData[date] = {
                     temp: Math.round(entry.main.temp), // Round temperature to the nearest integer
@@ -143,10 +127,9 @@ function Dashboard2() {
                 };
             }
         });
-    
+
         return Object.entries(dailyData).slice(0, 5).map(([date, data]) => ({ date, ...data }));
     };
-    
 
     const handleFieldChange = (e) => {
         const { name, value } = e.target;
@@ -167,9 +150,9 @@ function Dashboard2() {
                 },
                 body: JSON.stringify(newField)
             });
-            console.log('response:', response.status);
-            if (response) {
-                fetchFields();
+
+            if (response.ok) {
+                fetchDashboardData();
                 setNewField({
                     fieldName: '',
                     fieldSize: '',
@@ -178,7 +161,6 @@ function Dashboard2() {
                     fieldLog: []
                 });
                 setShowFieldForm(false);
-                window.location.reload();
             } else {
                 console.error('Error adding field');
             }
@@ -191,13 +173,14 @@ function Dashboard2() {
         const selectedFieldName = e.target.value;
         const selectedField = fields.find(field => field.fieldName === selectedFieldName);
         setSelectedField(selectedField);
+        const selectedFieldWeather = weatherData.find(w => w.fieldLocation === selectedField.fieldLocation);
+        setWeatherForecast(extractDailyForecast(selectedFieldWeather));
     };
 
     const handleFieldFormToggle = () => {
         setShowFieldForm(!showFieldForm);
     };
 
-    // Adding Logs to fields
     const handleLogChange = (e) => {
         const { name, value } = e.target;
         setNewLog({
@@ -217,6 +200,7 @@ function Dashboard2() {
                 },
                 body: JSON.stringify(newLog)
             });
+
             const data = await response.json();
 
             if (response.ok) {
@@ -229,7 +213,6 @@ function Dashboard2() {
                     description: ''
                 });
                 setShowLogForm(false);
-                window.location.reload();
             } else {
                 console.error('Error adding log');
             }
@@ -242,7 +225,6 @@ function Dashboard2() {
         setShowLogForm(!showLogForm);
     };
 
-    // Get Market Insights
     const handleGetInsights = async () => {
         if (!selectedField) {
             setErrors({ apiError: 'No field selected' });
@@ -257,7 +239,7 @@ function Dashboard2() {
                     'Authorization': `Bearer ${accessToken}`
                 }
             });
-            
+
             const data = await response.json();
 
             if (response.ok) {
@@ -266,7 +248,6 @@ function Dashboard2() {
                     ...prevField,
                     marketInsights: data
                 }));
-                window.location.reload();
             } else {
                 setErrors({ apiError: data.message });
             }
@@ -315,7 +296,7 @@ function Dashboard2() {
                     <h1>Daily Overview</h1>
                     <span className="date-time">
                         <img src={calender} alt="calender-icon" />
-                        {formatDateTime(now)}
+                        {formatDateTime(new Date())}
                     </span>
                     <div className="weather-blck">
                         <p>Weather</p>
@@ -336,19 +317,19 @@ function Dashboard2() {
                                 ))}
                             </select>
                         </div>
-                        
+
                         {selectedField ? (
-                            weatherData ? (
+                            weatherForecast.length > 0 ? (
                                 <div className="w-info">
                                     <div>
                                         <span id="temp">
-                                            {parseInt(weatherData.list[0].main.temp)}
+                                            {weatherForecast[0].temp}
                                         </span>
                                         <sup>ºC</sup>
                                     </div>
                                     <div className='w-icon'>
                                         <img
-                                            src={`https://openweathermap.org/img/wn/${weatherData.list[0].weather[0].icon}@4x.png`}
+                                            src={`https://openweathermap.org/img/wn/${weatherForecast[0].icon}@4x.png`}
                                             alt='weather-icon'
                                         />
                                     </div>
@@ -362,10 +343,9 @@ function Dashboard2() {
 
                         <span className="w-data">
                             {selectedField ? (
-                                weatherData ? (
+                                weatherForecast.length > 0 ? (
                                     <span>
-                                        <p><b>WS:</b> {weatherData.list[0].wind.speed} m/s</p>
-                                        <p><b>P:</b> {weatherData.list[0].main.pressure} hPa</p>
+                                        <p><b>WS:</b> {weatherForecast[0].weather}</p>
                                     </span>
                                 ) : (
                                     <p>Loading Data ...</p>
@@ -378,7 +358,7 @@ function Dashboard2() {
 
                     <div className="f-weather">
                         <ul>
-                            {weatherForecast && weatherForecast.length > 0 ? (
+                            {weatherForecast.length > 0 ? (
                                 weatherForecast.map((forecast, index) => (
                                     <li key={index}>
                                         <div className="w-flex">
@@ -389,20 +369,18 @@ function Dashboard2() {
                                                     className="ico-s"
                                                 />
                                             ) : (
-                                                <div className="placeholder-icon">N/A</div> 
+                                                <div className="placeholder-icon">N/A</div>
                                             )}
                                             {forecast.date ? forecast.date : 'N/A'}
                                         </div>
-                                        <b>{forecast.temp ? `${forecast.temp}ºC` : 'N/A'}</b> 
+                                        <b>{forecast.temp ? `${forecast.temp}ºC` : 'N/A'}</b>
                                     </li>
                                 ))
                             ) : (
-                                <li>No forecast data available</li> 
+                                <li>No forecast data available</li>
                             )}
                         </ul>
                     </div>
-
-
                 </div>
 
                 <div className="m-block">
@@ -412,17 +390,17 @@ function Dashboard2() {
                         <h5><b>Map Overview</b> - Location</h5>
                     )}
                     <div className="map">
-                    {weatherData && (
-                        <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
-                            <GoogleMap
-                            mapContainerStyle={mapContainer}
-                            center={{ lat: weatherData.city.coord.lat, lng: weatherData.city.coord.lon }}
-                            zoom={10}
-                            >
-                            <></>
-                            </GoogleMap>
-                        </LoadScript>
-                    )}
+                        {weatherData.length > 0 && (
+                            <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
+                                <GoogleMap
+                                    mapContainerStyle={mapContainer}
+                                    center={{ lat: weatherData[0].city.coord.lat, lng: weatherData[0].city.coord.lon }}
+                                    zoom={10}
+                                >
+                                    <></>
+                                </GoogleMap>
+                            </LoadScript>
+                        )}
                     </div>
                 </div>
 
@@ -430,20 +408,20 @@ function Dashboard2() {
                     <div className="f-over">
                         <span className="log-t">
                             <h5>Field Overview <i>- {fields.length} fields</i></h5>
-                            <i onClick={handleFieldFormToggle}><FaPlus id='add-log' /> Add field</i>    
+                            <i onClick={handleFieldFormToggle}><FaPlus id='add-log' /> Add field</i>
                         </span>
-                        { selectedField ? (
+                        {selectedField ? (
                             <div className="f-data">
                                 <p><b>Field Name:</b> {selectedField.fieldName} &nbsp;&nbsp;|&nbsp;&nbsp;
-                                <b>Location:</b> {selectedField.fieldLocation}<br />
-                                <b>Area:</b> {selectedField.fieldSize} hectares &nbsp;&nbsp;|&nbsp;&nbsp;
-                                <b>Crop:</b> {selectedField.crop}</p>
+                                    <b>Location:</b> {selectedField.fieldLocation}<br />
+                                    <b>Area:</b> {selectedField.fieldSize} hectares &nbsp;&nbsp;|&nbsp;&nbsp;
+                                    <b>Crop:</b> {selectedField.crop}</p>
                             </div>
                         ) : (
                             <p>No Field selected</p>
-                        )}                        
+                        )}
                     </div>
-                    {/* Pop-up Form */}
+
                     {showFieldForm && (
                         <div className="popup-form">
                             <div className="popup-form-content">
@@ -452,12 +430,11 @@ function Dashboard2() {
                                 <form onSubmit={handleAddField}>
                                     <label>Field Name:</label>
                                     <input type="text" name="fieldName" value={newField.fieldName} onChange={handleFieldChange} required />
-                                    
+
                                     <label>Field Size (in hectares):</label>
-                                    <input type="number" name="fieldSize" value={newField.fieldSize} onChange={handleFieldChange} required id='hect'/>
-                                    
+                                    <input type="number" name="fieldSize" value={newField.fieldSize} onChange={handleFieldChange} required id='hect' />
+
                                     <div className="locale">
-                                        {/* <label>Field Location:</label> */}
                                         <select name="fieldLocation" value={newField.fieldLocation} onChange={handleFieldChange} required>
                                             <option value="">Select a city</option>
                                             {africanCities.map((city, index) => (
@@ -465,15 +442,16 @@ function Dashboard2() {
                                             ))}
                                         </select>
                                     </div>
-                                    
+
                                     <label>Crop:</label>
-                                    <input type="text" name="crop" value={newField.crop} onChange={handleFieldChange} required id='crop'/>
-                                    
+                                    <input type="text" name="crop" value={newField.crop} onChange={handleFieldChange} required id='crop' />
+
                                     <button type="submit">Add Field</button>
                                 </form>
                             </div>
                         </div>
                     )}
+
                     <div className="f-over">
                         <span className="log-t">
                             <h5>Farm Logs</h5>
@@ -496,7 +474,7 @@ function Dashboard2() {
                             <p>No field selected</p>
                         )}
                     </div>
-                    {/* Pop-up Form */}
+
                     {showLogForm && (
                         <div className="popup-form">
                             <div className="popup-form-content">
@@ -505,14 +483,15 @@ function Dashboard2() {
                                 <form onSubmit={handleAddLog}>
                                     <label>Title:</label>
                                     <input type="text" name="title" value={newLog.title} onChange={handleLogChange} required id='log-title' />
-                                    
+
                                     <textarea name="description" value={newLog.description} onChange={handleLogChange} required placeholder='Write your Notes Here' />
-                                    
+
                                     <button type="submit">Add Log</button>
                                 </form>
                             </div>
                         </div>
                     )}
+
                     <div className="f-over">
                         <span className="log-t">
                             <h5>Market Insight</h5>
@@ -522,8 +501,8 @@ function Dashboard2() {
                             selectedField.marketInsights ? (
                                 <div className="f-data">
                                     <p><i className={getDemandClass(selectedField.marketInsights.demand)}><b>Demand:</b> {selectedField.marketInsights.demand}</i> &nbsp;&nbsp;|&nbsp;&nbsp;
-                                    <i className={getSupplyClass(selectedField.marketInsights.supply)}><b>Supply:</b> {selectedField.marketInsights.supply}<br /></i>
-                                    <b>Market Price:</b> ${selectedField.marketInsights.currentPrice}/kg </p>
+                                        <i className={getSupplyClass(selectedField.marketInsights.supply)}><b>Supply:</b> {selectedField.marketInsights.supply}<br /></i>
+                                        <b>Market Price:</b> ${selectedField.marketInsights.currentPrice}/kg </p>
                                 </div>
                             ) : (
                                 <>

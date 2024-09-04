@@ -11,7 +11,7 @@ const auth = (req, res, next) => {
             if (err) {
                 res.redirect('/');
             } else {
-                let user = await User.findById( decodedToken.id);
+                let user = await User.findById( decodedToken.id );
                 req.user = user;
                 next();
             }

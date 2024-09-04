@@ -82,6 +82,23 @@ body {
     display: none;
 }
 
+#user-menu {
+    position: absolute;
+    z-index: 9900;
+    height: fit-content;
+    background: #07502232;
+    backdrop-filter: blur(10px);
+    right: 2%;
+    box-shadow: 0px 0px 10px #0000005f;
+}
+
+#user-name {
+    font-size: 15px;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-bottom: 1px solid #575757;
+}
+
 /* dash-body */
 .d-body {
     background-image: url('../imgs/oak-icon-trans.png');

@@ -4,15 +4,24 @@ import { Link } from 'react-router-dom';
 import { IoNotifications, IoSearch, IoCloseSharp, IoMenu } from "react-icons/io5";
 import { FaCircleUser } from "react-icons/fa6";
 import logo from "../assets/imgs/oak-icon.png";
+import { useAuth } from '../context/AuthContext';
 
 function DashHead() {
+  // Get Username
+  const { user } = useAuth();
+  const username = user.username;
   // State to manage menu visibility
   const [isMenuVisible, setMenuVisible] = useState(false);
+  const [userMenu, setUserMenu] = useState(false);
 
   // Toggle menu visibility
   const toggleMenu = () => {
     setMenuVisible(!isMenuVisible);
   };
+
+  const toggleUserMenu = () => {
+    setUserMenu(!userMenu);
+  }
 
   return (
     <div className='h-all'>
@@ -29,7 +38,16 @@ function DashHead() {
       <div className="h-icons">
         <div><IoSearch className="search-icon" /></div>
         <div><IoNotifications className="bell-icon" /></div>
-        <div><FaCircleUser className="user-icon" /></div>
+        <div><FaCircleUser className="user-icon" onClick={toggleUserMenu} />
+          {userMenu && (
+            <div id='user-menu'>
+              <div id='user-name'>Hi! {username}</div>
+              <div>Profile</div>
+              <div>Settings</div>
+              <div>Logout</div>
+            </div>
+          )}
+        </div>
         <div><IoMenu className='menu-icon' id='menu-toggle' onClick={toggleMenu} /></div>
       </div>
 

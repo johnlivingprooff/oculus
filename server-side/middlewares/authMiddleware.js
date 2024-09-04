@@ -1,24 +1,27 @@
 const jwt = require('jsonwebtoken');
 const User = require("../models/User");
 
-const auth = (req, res, next) => {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1]; // Extract the token from the 'Bearer <token>' format
+const auth = async (req, res, next) => {
+    try {
+        const authHeader = req.headers['authorization'];
+        const token = authHeader && authHeader.split(' ')[1];
 
-    // Check if jsonwebtoken exists && is verified
-    if (token) {
-        jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
-            if (err) {
-                res.redirect('/');
-            } else {
-                let user = await User.findById( decodedToken.id );
-                req.user = user;
-                next();
-            }
-        })
-    } else {
-        res.redirect('/');
+        if (!token) {
+            return res.status(401).json({ message: 'Access Denied. No token provided.' });
+        }
+
+        const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+        const user = await User.findById(decodedToken.id);
+
+        if (!user) {
+            return res.status(401).json({ message: 'Invalid token. User does not exist.' });
+        }
+
+        req.user = user;
+        next();
+    } catch (err) {
+        return res.status(401).json({ message: 'Unauthorized access.', error: err.message });
     }
-}
+};
 
 module.exports = auth;

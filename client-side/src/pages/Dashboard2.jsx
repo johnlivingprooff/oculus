@@ -52,6 +52,7 @@ function Dashboard2() {
 
     // Get Access Token from AuthContext
     const { accessToken } = useAuth();
+    // console.log('Access Token:', accessToken); // just for debugging
 
     const [fields, setFields] = useState([]);
     const [selectedField, setSelectedField] = useState(null);

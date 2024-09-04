@@ -12,8 +12,12 @@ import { MdRefresh } from "react-icons/md";
 import { TiWeatherShower } from "react-icons/ti";
 import { GoogleMap, LoadScript } from '@react-google-maps/api';
 import { IoCloseCircleSharp } from "react-icons/io5";
+import { useAuth } from '../context/AuthContext';
 
 function Dashboard2() {
+
+    // Get Access Token from AuthContext
+    const { accessToken } = useAuth();
 
     // African Cities
     const africanCities = [
@@ -75,14 +79,16 @@ function Dashboard2() {
 
 
     useEffect(() => {
-        fetchFields();
-    }, []);
+        if (accessToken) {
+            fetchFields();
+        }
+    }, [accessToken]);
 
     useEffect(() => {
-        if (selectedField) {
+        if (selectedField && accessToken) {
             getWeatherData(selectedField.fieldLocation);
         }
-    }, [selectedField]);
+    }, [selectedField, accessToken]);
 
     const fetchFields = async () => {
         try {
@@ -90,7 +96,7 @@ function Dashboard2() {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    'Authorization': `Bearer ${accessToken}`
                 }
             });
             const data = await response.json();
@@ -109,7 +115,7 @@ function Dashboard2() {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    'Authorization': `Bearer ${accessToken}`
                 }
             });
             const data = await response.json();

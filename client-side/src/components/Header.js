@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function Header() {
   return (
     <header className="top">
-      <Link to={'/'}><h1>OCULUS</h1></Link>
+      <Link to={'/'}><h1>OAK</h1></Link>
       <div className="nav-bar">
         <ul>
           <li> <Link to="/">Home</Link> </li>

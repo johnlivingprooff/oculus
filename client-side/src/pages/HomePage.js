@@ -11,9 +11,9 @@ function HomePage() {
     return (
         <div>
             <Helmet>
-                <title>OCULUS - The Future of Agriculture</title>
-                <meta name="description" content="Increase your crop yield with OCULUS Technology. Sign up today for a 3-month free trial!" />
-                <meta name="keywords" content="OCULUS, Agriculture, Crop Yield, IoT, Farming, Technology" />
+                <title>OAK - The Future of Agriculture</title>
+                <meta name="description" content="Increase your crop yield with OAK Technology. Sign up today for a 3-month free trial!" />
+                <meta name="keywords" content="OAK, Agriculture, Crop Yield, IoT, Farming, Technology" />
             </Helmet>
             <Header />
             <div className="hero">
@@ -21,7 +21,7 @@ function HomePage() {
                 <div className="hero-text">
                     <h1>
                         <Typewriter
-                            words={['Meet OCULUS','The Future of Agriculture']}
+                            words={['Meet OAK','The Future of Agriculture']}
                             loop={0}
                             cursor
                             cursorStyle="|"
@@ -30,16 +30,16 @@ function HomePage() {
                             delaySpeed={3600}
                         />
                     </h1>
-                    <p>Increase your crop yield with OCULUS Technology, Sign up Today for a 3-Month Free Trial</p>
+                    <p>Increase your crop yield with OAK Technology, Sign up Today for a 3-Month Free Trial</p>
                     <br></br><br></br>
                     <Link to="/sign-up"> <button id="sign-up">  Sign Up! </button> </Link>
                     <a href="#about"> <button id="learn-more">  Learn More </button> </a>
                 </div>
             </div>
             <div className="about-us" id="about">
-                <img src={about} alt="about-oculus" />
+                <img src={about} alt="about-OAK" />
                 <div className="abt-text"><h2>About Us</h2>
-                <p>OCULUS is a smart agriculture platform that provides farmers with real-time data and insights on their crops. Our platform uses IoT devices and sensors to monitor the health of crops and soil. With OCULUS, farmers can make data-driven decisions to optimize their crop yield and reduce costs. <br/><br/>Sign up today for a <b>3-month free trial!</b></p>
+                <p>OAK is a smart agriculture platform that provides farmers with real-time data and insights on their crops. Our platform uses IoT devices and sensors to monitor the health of crops and soil. With OAK, farmers can make data-driven decisions to optimize their crop yield and reduce costs. <br/><br/>Sign up today for a <b>3-month free trial!</b></p>
                 <Link to="/sign-up"><button>SIGN UP</button></Link></div>
             </div>
 

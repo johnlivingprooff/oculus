@@ -4,7 +4,7 @@ function Footer() {
     return (
         <footer className="buttom">
             <div className="footer-content">
-                <h1>OCULUS</h1>
+                <h1>OAK</h1>
                 <p>P.O. BOX 123, XYZ Street, ABC - Earth</p>
             </div>
             <div className="links">

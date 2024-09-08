@@ -1,11 +1,13 @@
 import '../assets/styles/Header.css';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import logo from '../assets/imgs/oak-icon.png'
 
 function Header() {
   return (
     <header className="top">
-      <Link to={'/'}><h1>OAK</h1></Link>
+      <Link to={'/'}><h1>{logo}</h1></Link>
+      <img src={logo} alt="OAK Logo" id='oak-icon' />
       <div className="nav-bar">
         {/* <ul>
           <li> <Link to="/">Home</Link> </li>

@@ -77,6 +77,17 @@
     align-items: center;
   }
 
+  #oak-icon {
+    width: 65px;
+    height: 65px;
+    margin-right: 10px;
+  }
+
+  #oak-icon:hover {
+    transform: rotate(360deg);
+    transition: all 0.3s;
+  }
+
   /* mobile rendition */
   @media (max-width: 768px) {
     .top h1 {

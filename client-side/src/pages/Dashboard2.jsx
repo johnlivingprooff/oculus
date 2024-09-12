@@ -30,11 +30,7 @@ function Dashboard2() {
         "Port Louis", "Pretoria", "Rabat", "Rabat", "Salisbury", "San Salvador", "Sebastopol", "Sao Tome",
         "Tamale", "The Hague", "Tunis", "Tunis", "Tripoli", "Ulaanbaatar", "Victoria Island", "Windhoek",
         "Windhoek"
-      ];
-      
-
-    // get date & time
-    // const now = new Date();
+    ];
 
     const formatDateTime = (date) => {
         const shortDay = date.toLocaleString('en-US', { weekday: 'short' });
@@ -49,12 +45,8 @@ function Dashboard2() {
         return `${shortDay}-${dayOfMonth}, ${month} ${year} | ${formattedHours}:${minutes}${ampm}`;
     };
 
-
-    // Get Access Token from AuthContext
     const { accessToken } = useAuth();
-    // console.log('Access Token:', accessToken); // just for debugging
 
-    // const [userData, setUserData] = useState(null);
     const [fields, setFields] = useState([]);
     const [selectedField, setSelectedField] = useState(null);
     const [weatherData, setWeatherData] = useState([]);
@@ -86,6 +78,13 @@ function Dashboard2() {
         }
     }, [accessToken]);
 
+    useEffect(() => {
+        if (selectedField) {
+            fetchWeatherData(selectedField.fieldLocation);
+            fetchMarketInsights(selectedField._id);
+        }
+    }, [selectedField]);
+
     const fetchDashboardData = async () => {
         try {
             const response = await fetch('https://oculus-server.onrender.com/api/v1/dashboard', {
@@ -101,16 +100,61 @@ function Dashboard2() {
             }
 
             const data = await response.json();
-            // setUserData(data.user);
             setFields(data.fields);
             setWeatherData(data.weather);
+
             if (data.fields.length > 0) {
                 setSelectedField(data.fields[0]);
-                const firstFieldWeather = data.weather.length > 0 ? data.weather[0] : null;
-                setWeatherForecast(extractDailyForecast(firstFieldWeather));
             }
         } catch (error) {
             console.error('Error fetching dashboard data:', error);
+        }
+    };
+
+    const fetchWeatherData = async (fieldLocation) => {
+        try {
+            const response = await fetch(`https://oculus-server.onrender.com/api/v1/weather?location=${fieldLocation}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            setWeatherForecast(extractDailyForecast(data));
+        } catch (error) {
+            console.error('Error fetching weather data:', error);
+        }
+    };
+
+    const fetchMarketInsights = async (fieldId) => {
+        try {
+            const response = await fetch(`https://oculus-server.onrender.com/api/v1/fields/${fieldId}/market_insights`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            setMarketInsights(data);
+            setSelectedField(prevField => ({
+                ...prevField,
+                marketInsights: data
+            }));
+        } catch (error) {
+            console.error('Error fetching market insights:', error);
+            setErrors({ apiError: 'An error occurred. Please try again.' });
         }
     };
 
@@ -124,7 +168,7 @@ function Dashboard2() {
 
             if (!dailyData[date]) {
                 dailyData[date] = {
-                    temp: Math.round(entry.main.temp), // Round temperature to the nearest integer
+                    temp: Math.round(entry.main.temp),
                     weather: entry.weather[0].description,
                     icon: entry.weather[0].icon,
                 };
@@ -176,8 +220,6 @@ function Dashboard2() {
         const selectedFieldName = e.target.value;
         const selectedField = fields.find(field => field.fieldName === selectedFieldName);
         setSelectedField(selectedField);
-        const selectedFieldWeather = weatherData.find(w => w.fieldLocation === selectedField.fieldLocation);
-        setWeatherForecast(extractDailyForecast(selectedFieldWeather));
     };
 
     const handleFieldFormToggle = () => {
@@ -228,38 +270,6 @@ function Dashboard2() {
         setShowLogForm(!showLogForm);
     };
 
-    const handleGetInsights = async () => {
-        if (!selectedField) {
-            setErrors({ apiError: 'No field selected' });
-            return;
-        }
-
-        try {
-            const response = await fetch(`https://oculus-server.onrender.com/api/v1/fields/${selectedField._id}/market_insights`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${accessToken}`
-                }
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                setMarketInsights(data);
-                setSelectedField(prevField => ({
-                    ...prevField,
-                    marketInsights: data
-                }));
-            } else {
-                setErrors({ apiError: data.message });
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            setErrors({ apiError: 'An error occurred. Please try again.' });
-        }
-    };
-
     const getDemandClass = (demand) => {
         switch (demand.toLowerCase()) {
             case 'low':
@@ -291,7 +301,7 @@ function Dashboard2() {
             <Helmet>
                 <title>Dashboard - OCULUS</title>
                 <meta name="description" content="Your OCULUS Dashboard" />
-                <meta name="keywords" content="OCULUS, Agriculture, Crop Yield, IoT, Farming, Technology" />
+                <meta name="keywords" content="OAK, OCULUS, Agriculture, Crop Yield, IoT, Farming, Technology" />
             </Helmet>
             <Header />
             <div className="d-body">
@@ -498,7 +508,7 @@ function Dashboard2() {
                     <div className="f-over">
                         <span className="log-t">
                             <h5>Market Insight</h5>
-                            <i onClick={handleGetInsights}><MdRefresh id='add-log' /> refresh</i>
+                            <i onClick={fetchMarketInsights}><MdRefresh id='add-log' /> refresh</i>
                         </span>
                         {selectedField ? (
                             selectedField.marketInsights ? (
@@ -510,7 +520,7 @@ function Dashboard2() {
                             ) : (
                                 <>
                                     <p>No market insights available</p>
-                                    <button id='g-insight' onClick={handleGetInsights}>Get Insights</button>
+                                    <button id='g-insight' onClick={fetchMarketInsights}>Get Insights</button>
                                 </>
                             )
                         ) : (

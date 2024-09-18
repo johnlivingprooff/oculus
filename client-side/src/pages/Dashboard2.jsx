@@ -45,6 +45,15 @@ function Dashboard2() {
         return `${shortDay}-${dayOfMonth}, ${month} ${year} | ${formattedHours}:${minutes}${ampm}`;
     };
 
+    const formatLogDateTime = (date) => {
+        const shortDay = date.toLocaleString('en-US', { weekday: 'short' });
+        const dayOfMonth = date.getDate().toString().padStart(2, '0');
+        const month = date.toLocaleString('en-US', { month: 'short' });
+        const year = date.getFullYear();
+
+        return `${shortDay}, ${dayOfMonth} ${month} ${year}`;
+    }
+
     const { accessToken } = useAuth();
 
     const [fields, setFields] = useState([]);
@@ -500,8 +509,8 @@ function Dashboard2() {
                                 selectedField.fieldLog.map((log, index) => (
                                     <div className="f-data" key={index}>
                                         <p>
-                                            <b>{log.title}</b>
-                                            {log.description}
+                                            Title: <b>{log.title}</b>
+                                            &nbsp;|&nbsp;{formatLogDateTime(new Date(log.createdAt))}
                                         </p>
                                     </div>
                                 ))

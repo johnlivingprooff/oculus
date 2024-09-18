@@ -40,8 +40,8 @@ function DashHead() {
         <Link to={'/'}><img src={logo} alt="oak-icon" /></Link>
       </div>
       <div className="h-links">
-        <Link to={'/dashboard-two'}>Dashboard</Link>
-        <Link>Reports</Link>
+        <Link to={'/dashboard'}>Dashboard</Link>
+        <Link to={'/dashboard/reports'}>Reports</Link>
         <Link>Analytics</Link>
         <Link>Market</Link>
       </div>

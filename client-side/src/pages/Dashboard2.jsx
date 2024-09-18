@@ -87,7 +87,7 @@ function Dashboard2() {
 
     const fetchDashboardData = async () => {
         try {
-            const response = await fetch('https://oculus-server.onrender.com/api/v1/dashboard', {
+            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/dashboard`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -113,7 +113,7 @@ function Dashboard2() {
 
     const fetchWeatherData = async (fieldLocation) => {
         try {
-            const response = await fetch(`https://oculus-server.onrender.com/api/v1/weather?location=${fieldLocation}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/weather?location=${fieldLocation}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -134,7 +134,7 @@ function Dashboard2() {
 
     const fetchMarketInsights = async (fieldId) => {
         try {
-            const response = await fetch(`https://oculus-server.onrender.com/api/v1/fields/${fieldId}/market_insights`, {
+            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/fields/${fieldId}/market_insights`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -189,12 +189,13 @@ function Dashboard2() {
     const handleAddField = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('https://oculus-server.onrender.com/api/v1/fields/add_field', {
+            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/fields/add_field`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${accessToken}`
                 },
+                credentials: 'include', // If you need to include cookies
                 body: JSON.stringify(newField)
             });
 
@@ -237,12 +238,13 @@ function Dashboard2() {
     const handleAddLog = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`https://oculus-server.onrender.com/api/v1/fields/${selectedField._id}/add_log`, {
+            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/fields/${selectedField._id}/add_log`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${accessToken}`
                 },
+                credentials: 'include', // If you need to include cookies
                 body: JSON.stringify(newLog)
             });
 

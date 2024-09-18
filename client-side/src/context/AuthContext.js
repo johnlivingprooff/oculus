@@ -112,7 +112,7 @@ export const AuthProvider = ({ children }) => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                credentials: 'include' // If you need to include cookies
+                credentials: 'include' // If you need to include cookies (both for login, refresh token, logout)
             });
     
             if (!response.ok) {

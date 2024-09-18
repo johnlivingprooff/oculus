@@ -48,6 +48,7 @@ function Dashboard2() {
     const { accessToken } = useAuth();
 
     const [fields, setFields] = useState([]);
+    const [fieldLogs, setFieldLogs] = useState([]);
     const [selectedField, setSelectedField] = useState(null);
     const [weatherData, setWeatherData] = useState([]);
     const [weatherForecast, setWeatherForecast] = useState([]);
@@ -129,6 +130,28 @@ function Dashboard2() {
             setWeatherForecast(extractDailyForecast(data));
         } catch (error) {
             console.error('Error fetching weather data:', error);
+        }
+    };
+
+    const fetchFieldLogs = async (fieldId) => {
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/fields/${fieldId}/fieldlogs`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            setFieldLogs(data);
+        } catch (error) {
+            console.error('Error fetching field logs:', error);
+            setErrors({ apiError: 'An error occurred. Please try again.' });
         }
     };
 
@@ -238,7 +261,7 @@ function Dashboard2() {
     const handleAddLog = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/fields/${selectedField._id}/add_log`, {
+            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/fields/${selectedField._id}/fieldlogs`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

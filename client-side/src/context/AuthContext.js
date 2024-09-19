@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }) => {
     // Login function
     const login = async (email, password) => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/users/auth/login`, {
+            const response = await fetch(`https://oculus-server.onrender.com/users/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

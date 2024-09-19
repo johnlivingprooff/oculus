@@ -19,7 +19,7 @@
         "express": "^4.19.2",
         "jsonwebtoken": "^9.0.2",
         "mongoose": "^8.4.5",
-        "redis": "^4.6.15",
+        "redis": "^4.7.0",
         "validator": "^13.12.0"
     }
 }

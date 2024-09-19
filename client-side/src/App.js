@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import Register from './pages/Register';
 import Login from './pages/LoginPage';
 import Dashboard2 from './pages/Dashboard2';
+import DashReports from './pages/DashReports';
 import { AuthProvider } from './context/AuthContext';
 import LogoAnimation from './components/AnimateLogo';
 
@@ -28,6 +29,7 @@ function App() {
               <Route path="/sign-up" element={<Register />} />
               <Route path="/login" element={<Login />} />
               <Route path="/dashboard" element={<Dashboard2 />} />
+              <Route path='/dashboard/reports' element={<DashReports />} />
             </Routes>
           )}
         </div>

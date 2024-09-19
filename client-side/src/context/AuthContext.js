@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
     // Register function
     const register = async (username, email, password) => {
         try {
-            const response = await fetch('https://oculus-server.onrender.com/api/v1/users/auth/register', {
+            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/users/auth/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -48,11 +48,12 @@ export const AuthProvider = ({ children }) => {
     // Login function
     const login = async (email, password) => {
         try {
-            const response = await fetch('https://oculus-server.onrender.com/api/v1/users/auth/login', {
+            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/users/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                credentials: 'include', // If you need to include cookies
                 body: JSON.stringify({ email, password }),
             });
     
@@ -67,6 +68,9 @@ export const AuthProvider = ({ children }) => {
             setAccessToken(accessToken);
             setUser(user);
             setIsAuthenticated(true);
+
+            console.log('Login successful:', user);
+            console.log('Access Token:', accessToken);
     
             // Redirect to dashboard
             navigate('/dashboard');
@@ -77,12 +81,13 @@ export const AuthProvider = ({ children }) => {
 
     const logout = async () => {
         try {
-            const response = await fetch('https://oculus-server.onrender.com/api/v1/users/auth/logout', {
+            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/users/auth/logout`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                credentials: 'include' // If you need to include cookies
+                credentials: 'include', // If you need to include cookies
+                body: JSON.stringify({}),
             });
     
             if (!response.ok) {
@@ -102,12 +107,12 @@ export const AuthProvider = ({ children }) => {
     
     const refreshToken = async () => {
         try {
-            const response = await fetch('https://oculus-server.onrender.com/api/v1/users/auth/refresh-token', {
+            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/users/auth/refresh-token`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                credentials: 'include' // If you need to include cookies
+                credentials: 'include' // If you need to include cookies (both for login, refresh token, logout)
             });
     
             if (!response.ok) {

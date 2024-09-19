@@ -41,7 +41,7 @@ function Login() {
     return (
         <div className='bdy'>
             <Helmet>
-                <title>LogIn | Oculus</title>
+                <title>LogIn | OAK</title>
             </Helmet>
             <div className='overlay'>
                 <div className="f-box">

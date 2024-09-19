@@ -45,9 +45,19 @@ function Dashboard2() {
         return `${shortDay}-${dayOfMonth}, ${month} ${year} | ${formattedHours}:${minutes}${ampm}`;
     };
 
+    const formatLogDateTime = (date) => {
+        const shortDay = date.toLocaleString('en-US', { weekday: 'short' });
+        const dayOfMonth = date.getDate().toString().padStart(2, '0');
+        const month = date.toLocaleString('en-US', { month: 'short' });
+        const year = date.getFullYear();
+
+        return `${shortDay}, ${dayOfMonth} ${month} ${year}`;
+    }
+
     const { accessToken } = useAuth();
 
     const [fields, setFields] = useState([]);
+    const [fieldLogs, setFieldLogs] = useState([]);
     const [selectedField, setSelectedField] = useState(null);
     const [weatherData, setWeatherData] = useState([]);
     const [weatherForecast, setWeatherForecast] = useState([]);
@@ -87,7 +97,7 @@ function Dashboard2() {
 
     const fetchDashboardData = async () => {
         try {
-            const response = await fetch('https://oculus-server.onrender.com/api/v1/dashboard', {
+            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/dashboard`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -113,7 +123,7 @@ function Dashboard2() {
 
     const fetchWeatherData = async (fieldLocation) => {
         try {
-            const response = await fetch(`https://oculus-server.onrender.com/api/v1/weather?location=${fieldLocation}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/weather?location=${fieldLocation}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -132,9 +142,31 @@ function Dashboard2() {
         }
     };
 
+    const fetchFieldLogs = async (fieldId) => {
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/fields/${fieldId}/fieldlogs`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            setFieldLogs(data);
+        } catch (error) {
+            console.error('Error fetching field logs:', error);
+            setErrors({ apiError: 'An error occurred. Please try again.' });
+        }
+    };
+
     const fetchMarketInsights = async (fieldId) => {
         try {
-            const response = await fetch(`https://oculus-server.onrender.com/api/v1/fields/${fieldId}/market_insights`, {
+            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/fields/${fieldId}/market_insights`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -189,12 +221,13 @@ function Dashboard2() {
     const handleAddField = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('https://oculus-server.onrender.com/api/v1/fields/add_field', {
+            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/fields/add_field`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${accessToken}`
                 },
+                credentials: 'include', // If you need to include cookies
                 body: JSON.stringify(newField)
             });
 
@@ -237,12 +270,13 @@ function Dashboard2() {
     const handleAddLog = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`https://oculus-server.onrender.com/api/v1/fields/${selectedField._id}/add_log`, {
+            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/fields/${selectedField._id}/fieldlogs`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${accessToken}`
                 },
+                credentials: 'include', // If you need to include cookies
                 body: JSON.stringify(newLog)
             });
 
@@ -475,8 +509,8 @@ function Dashboard2() {
                                 selectedField.fieldLog.map((log, index) => (
                                     <div className="f-data" key={index}>
                                         <p>
-                                            <b>{log.title}</b>
-                                            {log.description}
+                                            Title: <b>{log.title}</b>
+                                            &nbsp;|&nbsp;{formatLogDateTime(new Date(log.createdAt))}
                                         </p>
                                     </div>
                                 ))

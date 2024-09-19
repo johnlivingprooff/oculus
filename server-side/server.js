@@ -47,6 +47,16 @@ app.get('/', (req, res) => {
   res.send('HomePage');
 })
 
+// Redis Check
+app.get("/redis-check", async (req, res) => {
+  try {
+    const redisStatus = await redisClient.ping(); // Redis ping to check if it's responsive
+    res.send(`Redis is responsive: ${redisStatus}`);
+  } catch (error) {
+    res.status(500).send("Redis error");
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`['green']);
 })

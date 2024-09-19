@@ -41,7 +41,7 @@ function Register() {
     return (
         <div className='bdy'>
             <Helmet>
-                <title>Register | Oculus</title>
+                <title>Register | OAK</title>
             </Helmet>
             <div className='overlay'>
                 <div className="f-box">
